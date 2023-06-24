@@ -9,8 +9,7 @@ from src.apps.account.models import User
 
 class Post(models.Model):
     author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-    title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250)
+    image = models.ImageField(null = False, on_delete=models.CASCADE) 
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -31,7 +30,6 @@ class Comment(models.Model):
     for_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     reply_to = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name='replas')
     publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
