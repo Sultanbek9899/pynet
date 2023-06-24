@@ -8,10 +8,10 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     description = models.TextField("Описание")
     image = models.ImageField("Картинка", upload_to="post/image/")
-
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
     updated_at = models.DateTimeField("Время добавления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
+    likes = models.ManyToManyField(User, related_name='post_likes')
 
     class Meta:
         verbose_name = "Пост"
@@ -25,6 +25,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     comments = models.TextField()
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='coments_likes')
 
     class Meta:
         verbose_name = "Комментарий"
@@ -32,6 +33,24 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comments
+
+
+class like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+    coment = models.ForeignKey(Comment, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+
+
+
+    
+
+
+
+
        
 
 
