@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+
+{%block content%}
+    <style>
+        h1{
+            color:crimson;
+            font: size 50px;
+        }
+    </style>
+    <h1>Публикации</h1>
+    {% for p in posts %}
+        <h2>{{p.title}}</h2>
+        {% if p.image %}
+        <img src="{{p.image.url}}" alt="">
+        {% endif %}
+        <h5>{{p.category_name}}</h5>
+        <p>{{p.description}}</p>
+        <p>Дата создания: {{p.created_at}}</p>
+    {% endfor %}
+{% endblock %}
+
