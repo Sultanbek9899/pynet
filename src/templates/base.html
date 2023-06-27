@@ -79,11 +79,33 @@
             <input type="text" name="search" id="search" placeholder="Search" class="form-control form-control-sm">
         </form>
         <a href="notification.html" class="text-decoration-none" style="color:#CBE4F2;font-size:22px;"><i class="far fa-bell ml-3 d-none d-md-block"></i></a> 
-        <img src="{% static 'img/avatar-dhg.png' %}" alt="" class="rounded-circle ml-3 d-none d-md-block" width="32px" height="32px">
+        {% if request.user.is_authenticated %}
+		<img src="{% static 'img/avatar-dhg.png' %}" alt="" class="rounded-circle ml-3 d-none d-md-block" width="32px" height="32px">
+		
+		<a href="{% url 'logout' %}" style="color:white; text-decoration: none;">Выйти</a>
+		
+		{% else %}
+		<a href="{% url 'login' %}" style="text-decoration: none; color:#fff; margin-left: 10px;">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+				<path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+				<path d="M20 12h-13l3 -3m0 6l-3 -3"></path>
+			</svg>
+			  Войти
+		</a>
+		{% endif %}
 
+		{% if request.user  == profile %}
 
+			<button>Редактировать профиль  </button>
 
-
+		{% else %}
+			{% if request.user not in profile.followers.all %}
+			<button> Подписаться </button>
+			{% else %}
+			<button> Отписаться </button>
+			{% endif %}
+		{% endif %}
 
     </div>
 
