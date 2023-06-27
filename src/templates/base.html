@@ -95,17 +95,6 @@
 		</a>
 		{% endif %}
 
-		{% if request.user  == profile %}
-
-			<button>Редактировать профиль  </button>
-
-		{% else %}
-			{% if request.user not in profile.followers.all %}
-			<button> Подписаться </button>
-			{% else %}
-			<button> Отписаться </button>
-			{% endif %}
-		{% endif %}
 
     </div>
 
