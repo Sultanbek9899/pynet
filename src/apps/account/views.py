@@ -54,22 +54,30 @@ def user_logout(request):
     return redirect("index")
 
 
-class UserRegisterView(CreateView):
-    template_name = "register.html"
-    form_class = UserRegisterForm
-    model = User 
-    success_url = reverse_lazy('index')
-
-# def registerPage(request):
-#     form = UserCreationForm()
-#     if request.method == "POST":
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save
+# class UserRegisterView(CreateView):
+#     template_name = "register.html"
+#     form_class = UserRegisterForm
+#     model = User 
+#     success_url = reverse_lazy('index')
 
 
-#     context = {'form':form}
-#     return render(request, 'accounts/register.html', context)
+def register_user(request):
+    form = UserRegisterForm()
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data["password1"]
+            user = User.objects.create(
+                username=form.cleaned_data["username"],
+                email=form.cleaned_data["email"],
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"]
+            )
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return redirect("index")
+    
+    context = {'form':form}
+    return render(request, 'register.html', context)
 
-class RegisterDoneView(TemplateView):
-    template_name = "register_done.html"
