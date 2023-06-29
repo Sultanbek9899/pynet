@@ -20,7 +20,7 @@ class Post(models.Model):
     def __str__(self):
         return f"#{self.id}-{self.description[:50]}"
     
-class Comment(models.Model): 
+class Comment(models.Model):  
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     comments = models.TextField()
