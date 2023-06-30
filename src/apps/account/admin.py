@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from src.apps.account.models import User
+from src.apps.account.models import User, Follow
 
 # Register your models here.
 
@@ -10,3 +10,4 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ["username", "email"]
     filter_horizontal = ["followers"]
 
+admin.site.register(Follow)
