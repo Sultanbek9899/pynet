@@ -55,6 +55,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'src.config.urls'
+LOGIN_REDIRECT_URL = "login"
 
 TEMPLATES = [
     {
