@@ -139,15 +139,16 @@
 
 
                         <div class="card-header bg-transparent">
-                            <form class="form-inline" method="POST">
+                            <form class="form-inline" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="input-group w-100">
-                                    <input type="text" name="message" id="message" placeholder="Message" class="form-control form-control-md">
+                                    {{ form.description.widget }}
                                     <div class="input-group-append">
                                         <div class="input-group-text">
-                                            <label for="photo-upload" id="photo-icon" class="fas fa-camera" title="Add Photo"></label>
-                                            <input type="file" id="photo-upload" style="display: none;">
+                                            <label for="photo-upload" class="fas fa-camera" title="Add Photo"></label>
+                                            <input type="file" id="photo-upload" name="photo" style="display: none;">
                                         </div>
+                                        {{ form.image }}
                                         <button type="submit" class="btn btn-primary ml-2 btn-ghost-primary">Send</button>
                                     </div>
                                 </div>
