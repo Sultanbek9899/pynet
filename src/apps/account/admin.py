@@ -10,3 +10,4 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ["username", "email"]
     filter_horizontal = ["followers"]
 
+# admin.site.register(Follow)
