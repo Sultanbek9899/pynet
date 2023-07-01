@@ -7,7 +7,7 @@ from src.apps.account.models import User
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     description = models.TextField("Пост") 
-    image = models.ImageField("Картинка", upload_to="post/image/", blank=False, null=True)
+    image = models.ImageField("Картинка", upload_to="post/image/", blank=True, null=True)
 
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
     updated_at = models.DateTimeField("Время добавления", auto_now=True)
