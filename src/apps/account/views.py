@@ -1,18 +1,14 @@
 from typing import Any
-from django.core.paginator import _SupportsPagination
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, CreateView, UpdateView, ListView
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from account.models import User, Follow
+from .models import User
+from django.contrib import messages
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from src.apps.post.models import Post
-
-
-
-
 from src.apps.account.forms import LoginForm
 # Create your views here.
 
@@ -101,49 +97,58 @@ class UsersSearchListView(ListView):
 #         return redirect('index')
 
     
-@login_required(login_url='login')
-def profile(request, pk):
-    user_object = User.objects.get(username=pk)
-    user_profile = User.objects.get(user=user_object)
-    user_posts = Post.objects.filter(user=pk)
-    user_post_length = len(user_posts)
+# @login_required(login_url='login')
+# def profile(request, pk):
+#     user_object = User.objects.get(username=pk)
+#     user_profile = User.objects.get(user=user_object)
+#     user_posts = Post.objects.filter(user=pk)
+#     user_post_length = len(user_posts)
 
-    follower = request.user.username
-    user = pk
+#     follower = request.user.username
+#     user = pk
 
-    if Follow.objects.filter(follower=follower, following=user).first():
-        button_text = 'Unfollow'
-    else:
-        button_text = 'Follow'
+#     if Follow.objects.filter(follower=follower, following=user).first():
+#         button_text = 'Unfollow'
+#     else:
+#         button_text = 'Follow'
 
-    user_followers = len(Follow.objects.filter(following=pk))
-    user_following = len(Follow.objects.filter(follower=pk))
+#     user_followers = len(Follow.objects.filter(following=pk))
+#     user_following = len(Follow.objects.filter(follower=pk))
 
-    context = {
-        'user_object': user_object,
-        'user_profile': user_profile,
-        'user_posts': user_posts,
-        'user_post_length': user_post_length,
-        'button_text': button_text,
-        'user_followers': user_followers,
-        'user_following': user_following,
-    }
-    return render(request, 'profile.html', context)
+#     context = {
+#         'user_object': user_object,
+#         'user_profile': user_profile,
+#         'user_p
+
+
+
 
 @login_required(login_url='login')
-def follow(request):
-    if request.method == 'POST':
-        follower = request.POST['follower']
-        user = request.POST['user']
-
-        if Follow.objects.filter(follower=follower, following=user).first():
-            delete_follower = Follow.objects.get(follower=follower, user=user)
-            delete_follower.delete()
-            return redirect('/profile/'+user)
+def follow(request, pk):
+    profile = User.objects.get(pk=pk).profile
+    if request.user.profile != profile:
+        if profile not in request.user.profile.follows.all():
+            request.user.profile.follows.add(profile)
+            messages.success(request, f'Вы подписались на {profile.user.username}')
         else:
-            new_follower = Follow.objects.create(follower=follower, following=user)
-            new_follower.save()
-            return redirect('/profile/'+user)
+            messages.info(request, f'Вы уже подписаны на {profile.user.username}')
     else:
-        return redirect('/')
+        messages.info(request, 'Вы не можете подписаться на самого себя')
+    return redirect('index')
+
+@login_required(login_url='login')
+def unfollow(request, pk):
+    profile = User.objects.get(pk=pk).profile
+    if request.user.profile != profile:
+        if profile in request.user.profile.follows.all():
+            request.user.profile.follows.remove(profile)
+            messages.success(request, f'Вы отписались от {profile.user.username}')
+        else:
+            messages.info(request, f'Вы не были подписаны на {profile.user.username}')
+    else:
+        messages.info(request, 'Вы не можете отписаться от самого себя')
+    return redirect('index')
+
+
+
 

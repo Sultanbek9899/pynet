@@ -11,9 +11,6 @@ class User(AbstractUser):
         (GENDER_MEN, "Мужчина"),
         (GENDER_WOMEN, "Женщина"),
     )
-
-    first_name=models.CharField("Имя", max_length=200, null=True,blank=True)
-    last_name=models.CharField("Фамилия", max_length=200, null=True,blank=True)
     email = models.EmailField("Email", unique=True)
     about = models.TextField("О себе", null=True,blank=True)
     avatar = models.ImageField(
@@ -40,15 +37,15 @@ class User(AbstractUser):
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
 
-class Follow(models.Model):
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
-    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers_count')
-    created=models.DateTimeField(auto_now_add=True)
+# class Follow(models.Model):
+#     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+#     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers_count')
+#     created=models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name= 'Подписка'
-        verbose_name= 'Подписки'
-        ordering=['-created']
+#     class Meta:
+#         verbose_name= 'Подписка'
+#         verbose_name= 'Подписки'
+#         ordering=['-created']
 
-    def __str__(self):
-        return f'{self.following} подписался на {self.follower}'
+#     def __str__(self):
+#         return f'{self.following} подписался на {self.follower}'

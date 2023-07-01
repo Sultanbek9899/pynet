@@ -36,9 +36,26 @@
     
                 </ul>
     
-                <form action="" class="form-inline ml-auto d-none d-md-block">
-                    <input type="text" name="search" id="search" placeholder="Search" class="form-control form-control-sm">
-                </form>
+                {% for user in users %}
+                        <div class="user-profile">
+                                <h3>{{ user.username }}</h3>
+                                {% if user != request.user %}
+                                        {% if user.profile in request.user.profile.follows.all %}
+                                                <form action="{% url 'unfollow' pk=user.profile.pk %}" method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit">Отписаться</button>
+                                                </form>
+                                        {% else %}
+                                                <form action="{% url 'follow' pk=user.profile.pk %}" method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit">Подписаться</button>
+                                                </form>
+                                        {% endif %}
+                                {% endif %}
+                        </div>
+                {% endfor %}
+                                </div>
+                                {% endfor %}
                 <a href="notification.html" class="text-decoration-none" style="color:#CBE4F2;font-size:22px;"><i class="far fa-bell ml-3 d-none d-md-block"></i></a> 
                 <img src="img/avatar-dhg.png" alt="" class="rounded-circle ml-3 d-none d-md-block" width="32px" height="32px">
   
