@@ -1,16 +1,20 @@
 from typing import Any
 from django.shortcuts import render, redirect
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView, CreateView, UpdateView, ListView
+from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView
 from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import User
 from django.contrib import messages
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from src.apps.post.models import Post
-from src.apps.account.forms import LoginForm
+from src.apps.account.forms import LoginForm, UserRegisterForm
 # Create your views here.
+from src.apps.account.models import User
 
 
 class LoginView(FormView):
@@ -84,5 +88,31 @@ def unfollow(request, pk):
     return redirect('index')
 
 
+# class UserRegisterView(CreateView):
+#     template_name = "register.html"
+#     form_class = UserRegisterForm
+#     model = User 
+#     success_url = reverse_lazy('index')
+
+
+def register_user(request):
+    form = UserRegisterForm()
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data["password1"]
+            user = User.objects.create(
+                username=form.cleaned_data["username"],
+                email=form.cleaned_data["email"],
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"]
+            )
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return redirect("index")
+    
+    context = {'form':form}
+    return render(request, 'register.html', context)
 
 

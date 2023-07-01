@@ -139,28 +139,36 @@
 
 
                         <div class="card-header bg-transparent">
-                            <form class="form-inline">
 
+                           
 
+                            <form class="form-inline" action="{% url 'index' %}"  method='post' enctype="multipart/form-data">
+                                
+                                {% csrf_token %}
+                        
                                 <div class="input-group w-100">
-                                <input type="text" name="message" id="message" placeholder="Message" class="form-control form-control-md">
+                                {{ form.description }}
 
-                                <div class="input-group-append">
-                                        <div class="input-group-text">
+                                
+                                <div class="input-group-append" for="iiim">
+                                    <label class="input-group-text">
                                                 <i class="fas fa-camera"></i>
-                                            </div>
-
-
+                                                 {{form.image}}
+                                    </label>
                                 </div>
-
+                                
                                 </div>
-
+                                <div class="mt-3">
+                                <button type="submit" id="upload-btn" class="btn btn-primary">Добавить</button>
+                                <span id="file-name" style="margin: auto 8px;"></span>
+                                </div>
 
 
                         
                                 
                             
                             </form>
+                            </div>
 
                         </div>
 
@@ -464,5 +472,32 @@
 
 
     </div>
-    </div>
+    </div>  
+
+    <style>
+        .btn-success {
+            background-color: rgb(99, 195, 128);
+        }
+
+    </style>
+        
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.getElementById('photo-upload');
+        var uploadBtn = document.getElementById('upload-btn');
+        var fileNameSpan = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+            uploadBtn.classList.add('btn-success');
+            fileNameSpan.textContent = fileInput.files[0].name; 
+            } else {
+            uploadBtn.classList.remove('btn-success');
+            fileNameSpan.textContent = '';  
+            }
+        });
+        });
+    </script>
+    
 {% endblock %}

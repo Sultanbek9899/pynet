@@ -6,8 +6,8 @@ from src.apps.account.models import User
 # related_name  u
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
-    description = models.TextField("Описание")
-    image = models.ImageField("Картинка", upload_to="post/image/")
+    description = models.TextField("Пост") 
+    image = models.ImageField("Картинка", upload_to="post/image/", blank=True, null=True)
 
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
     updated_at = models.DateTimeField("Время добавления", auto_now=True)
@@ -20,7 +20,7 @@ class Post(models.Model):
     def __str__(self):
         return f"#{self.id}-{self.description[:50]}"
     
-class Comment(models.Model): 
+class Comment(models.Model):  
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     comments = models.TextField()
@@ -33,10 +33,4 @@ class Comment(models.Model):
     def __str__(self):
         return self.comments
        
-
-
-
-
-
-
 
