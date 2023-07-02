@@ -36,16 +36,3 @@ class User(AbstractUser):
     @property
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
-
-# class Follow(models.Model):
-#     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
-#     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers_count')
-#     created=models.DateTimeField(auto_now_add=True)
-
-#     class Meta:
-#         verbose_name= 'Подписка'
-#         verbose_name= 'Подписки'
-#         ordering=['-created']
-
-#     def __str__(self):
-#         return f'{self.following} подписался на {self.follower}'
