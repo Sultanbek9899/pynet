@@ -35,27 +35,7 @@
                     <li class="nav-item"><a href="#" class="nav-link d-md-none">logout</a></li>
     
                 </ul>
-    
-                {% for user in users %}
-                        <div class="user-profile">
-                                <h3>{{ user.username }}</h3>
-                                {% if user != request.user %}
-                                        {% if user.profile in request.user.profile.follows.all %}
-                                                <form action="{% url 'unfollow' pk=user.profile.pk %}" method="post">
-                                                        {% csrf_token %}
-                                                        <button type="submit">Отписаться</button>
-                                                </form>
-                                        {% else %}
-                                                <form action="{% url 'follow' pk=user.profile.pk %}" method="post">
-                                                        {% csrf_token %}
-                                                        <button type="submit">Подписаться</button>
-                                                </form>
-                                        {% endif %}
-                                {% endif %}
-                        </div>
-                {% endfor %}
-                                </div>
-                                {% endfor %}
+
                 <a href="notification.html" class="text-decoration-none" style="color:#CBE4F2;font-size:22px;"><i class="far fa-bell ml-3 d-none d-md-block"></i></a> 
                 <img src="img/avatar-dhg.png" alt="" class="rounded-circle ml-3 d-none d-md-block" width="32px" height="32px">
   
@@ -271,59 +251,76 @@
 
         <div class="grid-template container my-4">
             
-
-            <div class="item-1">
-           <a href="portfolio/img1.jpg" data-lightbox="id"><img src="portfolio/img1.jpg" alt="" class="img-fluid" style="width:455px; height: 255px;"></a>    
-            </div>
-
-            <div class="item-2 ">
-                <a href="portfolio/img2.jpg"data-lightbox="id"> <img src="portfolio/img2.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a>   
-
-                </div>
-                <div class="item-3">
-                        <a href="portfolio/img3.jpg"data-lightbox="id"> <img src="portfolio/img3.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-                    </div>
-                    <div class="item-4">
-                            <a href="portfolio/img4.jpg"data-lightbox="id"> <img src="portfolio/img4.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-
+                {% for user in users %}
+                        <div class="user-profile">
+                                <h3>{{ user.username }}</h3>
+                                {% if user != request.user %}
+                                        {% if user.profile in request.user.profile.follows.all %}
+                                                <form action="{% url 'unfollow' pk=user.profile.pk %}" method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit">Отписаться</button>
+                                                </form>
+                                        {% else %}
+                                                <form action="{% url 'follow' pk=user.profile.pk %}" method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit">Подписаться</button>
+                                                </form>
+                                        {% endif %}
+                                {% endif %}
                         </div>
-                        <div class="item-5">
-
-                                <a href="portfolio/img5.jpg"data-lightbox="id"><img src="portfolio/img5.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-                        </div>
-            
-                        <div class="item-6">
-                                <a href="portfolio/img6.jpg"data-lightbox="id">   <img src="portfolio/img6.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-                            </div>
-                            <div class="item-7">
-                                    <a href="portfolio/img7.jpg"data-lightbox="id"> <img src="portfolio/img7.jpg" alt="" class="img-fluid" style="width:455px; height: 255px;"></a> 
-                              
+                {% endfor %}
+                                <div class="item-1">
+                                <a href="portfolio/img1.jpg" data-lightbox="id"><img src="portfolio/img1.jpg" alt="" class="img-fluid" style="width:455px; height: 255px;"></a>    
                                 </div>
-                                <div class="item-8">
-                                
-                                        <a href="portfolio/img8.jpg"data-lightbox="id">  <img src="portfolio/img8.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-            
-                                    </div>
 
-                                    <div class="item-9">
-                                            <a href="portfolio/img9.jpg"data-lightbox="id"><img src="portfolio/img9.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-          
+                                <div class="item-2 ">
+                                        <a href="portfolio/img2.jpg"data-lightbox="id"> <img src="portfolio/img2.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a>   
 
-
-                                    </div>
-                        
-                                    <div class="item-10">
-                                            <a href="portfolio/img10.jpg"data-lightbox="id">    <img src="portfolio/img10.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-                                        
-                        
                                         </div>
-                                        <div class="item-11">
-                                                <a href="portfolio/img11.jpg"data-lightbox="id">   <img src="portfolio/img11.jpg" alt="" class="img-fluid" style="width:455px; height: 255px;"></a> 
-                                          
-                                            </div>
-                                            <div class="item-12">
-                                                    <a href="portfolio/img12.jpg"data-lightbox="id">   <img src="portfolio/img12.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
-                                               </div>
+                                        <div class="item-3">
+                                                <a href="portfolio/img3.jpg"data-lightbox="id"> <img src="portfolio/img3.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+                                        </div>
+                                        <div class="item-4">
+                                                <a href="portfolio/img4.jpg"data-lightbox="id"> <img src="portfolio/img4.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+
+                                                </div>
+                                                <div class="item-5">
+
+                                                        <a href="portfolio/img5.jpg"data-lightbox="id"><img src="portfolio/img5.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+                                                </div>
+                                
+                                                <div class="item-6">
+                                                        <a href="portfolio/img6.jpg"data-lightbox="id">   <img src="portfolio/img6.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+                                                </div>
+                                                <div class="item-7">
+                                                        <a href="portfolio/img7.jpg"data-lightbox="id"> <img src="portfolio/img7.jpg" alt="" class="img-fluid" style="width:455px; height: 255px;"></a> 
+                                                
+                                                        </div>
+                                                        <div class="item-8">
+                                                        
+                                                                <a href="portfolio/img8.jpg"data-lightbox="id">  <img src="portfolio/img8.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+                                
+                                                        </div>
+
+                                                        <div class="item-9">
+                                                                <a href="portfolio/img9.jpg"data-lightbox="id"><img src="portfolio/img9.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+                                
+
+
+                                                        </div>
+                                                
+                                                        <div class="item-10">
+                                                                <a href="portfolio/img10.jpg"data-lightbox="id">    <img src="portfolio/img10.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+                                                                
+                                                
+                                                                </div>
+                                                                <div class="item-11">
+                                                                        <a href="portfolio/img11.jpg"data-lightbox="id">   <img src="portfolio/img11.jpg" alt="" class="img-fluid" style="width:455px; height: 255px;"></a> 
+                                                                
+                                                                </div>
+                                                                <div class="item-12">
+                                                                        <a href="portfolio/img12.jpg"data-lightbox="id">   <img src="portfolio/img12.jpg" alt="" class="img-fluid" style="width:217px; height: 255px;"></a> 
+                                                                </div>
 
         </div>
 
