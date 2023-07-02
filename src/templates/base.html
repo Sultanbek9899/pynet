@@ -40,11 +40,11 @@
 <meta property="og:url" content="https://preview.tabler.io/static/og.png">
 <meta property="og:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
 <!-- CSS files -->
-<link href="{% static 'dist/css/tabler.min.css?1685973381' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/tabler-flags.min.css?1685973381' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/tabler-payments.min.css?1685973381' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/tabler-vendors.min.css?1685973381' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/demo.min.css?1685973381' %}" rel="stylesheet"/>
+<link href="{% static 'dist/css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'dist/css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'dist/css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'dist/css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'dist/css/demo.min.css' %}" rel="stylesheet"/>
 <style>
   @import url('https://rsms.me/inter/inter.css');
   :root {
@@ -58,7 +58,7 @@
 <title>Application-1</title>
 </head>
 <body>
-
+	<script src="{% static 'dist/js/demo-theme.min.js'%}"></script>
     <!-------------------------------NAvigation Starts------------------>
     <nav class="navbar navbar-expand-md navbar-dark mb-4" style="background-color:#3097D1">
     <a href="index.html" class="navbar-brand"><img src="img/brand-white.png" alt="logo" class="img-fluid" width="80px" height="100px"></a>
@@ -81,21 +81,30 @@
             <input type="text" name="search" id="search" placeholder="Search" class="form-control form-control-sm">
         </form>
         <a href="notification.html" class="text-decoration-none" style="color:#CBE4F2;font-size:22px;"><i class="far fa-bell ml-3 d-none d-md-block"></i></a> 
-        {% if request.user.is_authenticated %}
+        
+		
+		{% if request.user.is_authenticated %}
 		<!-- <img src="{% static 'img/avatar-dhg.png' %}" alt="" class="rounded-circle ml-3 d-none d-md-block" width="32px" height="32px"> -->
 		
 		<!-- <a href="{% url 'logout' %}" style="color:white; text-decoration: none;">Выйти</a> -->
 		
-		<div class="btn-group">
-			<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				<img src="{% static 'img/avatar-dhg.png' %}" alt="" class="rounded-circle ml-3 d-none d-md-block" width="32px" height="32px"> 
-				{{user.username}}
-			</button>
-			<ul class="dropdown-menu">
-			<li><a class="dropdown-item" href="{% url 'logout' %}">Выйти </a></li>
-			<li><a class="dropdown-item" href="{% url 'register' %}">Зарегистрироваться</a></li>
-			</ul>
-		</div>
+		<div class="nav-item dropdown">
+			<a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+			  <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+			  <div class="d-none d-xl-block ps-2">
+				<div>{{request.user.username}}</div>
+				<div class="mt-1 small text-secondary">UI Designer</div>
+			  </div>
+			</a>
+			<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+			  <a href="#" class="dropdown-item">Status</a>
+			  <a href="./profile.html" class="dropdown-item">Profile</a>
+			  <a href="#" class="dropdown-item">Feedback</a>
+			  <div class="dropdown-divider"></div>
+			  <a href="./settings.html" class="dropdown-item">Settings</a>
+			  <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+			</div>
+		  </div>
 		{% else %}
 		<a href="{% url 'login' %}" style="text-decoration: none; color:#fff; margin-left: 10px;">
 			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -120,16 +129,16 @@
 
     {% endblock %}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="{% static 'dist/libs/apexcharts/dist/apexcharts.min.js?1685973381' %}" defer></script>
-    <script src="{% static 'dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1685973381' %}" defer></script>
-    <script src="{% static 'dist/libs/jsvectormap/dist/maps/world.js?1685973381' %}" defer></script>
-    <script src="{% static 'dist/libs/jsvectormap/dist/maps/world-merc.js?1685973381' %}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+    <script src="{% static 'dist/libs/apexcharts/dist/apexcharts.min.js' %}" defer></script>
+    <script src="{% static 'dist/libs/jsvectormap/dist/js/jsvectormap.min.js' %}" defer></script>
+    <script src="{% static 'dist/libs/jsvectormap/dist/maps/world.js' %}" defer></script>
+    <script src="{% static 'dist/libs/jsvectormap/dist/maps/world-merc.js' %}" defer></script>
     <!-- Tabler Core -->
-    <script src="{% static 'dist/js/tabler.min.js?1685973381' %}" defer></script>
-    <script src="{% static 'dist/js/demo.min.js?1685973381' %}" defer></script>
+    <script src="{% static 'dist/js/tabler.min.js' %}" defer></script>
+    <script src="{% static 'dist/js/demo.min.js' %}" defer></script>
     <script>
       // @formatter:off
       document.addEventListener("DOMContentLoaded", function () {
