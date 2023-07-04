@@ -1,138 +1,312 @@
-<!DOCTYPE html>
+<!doctype html>
+{% load static %}
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta19
+* @link https://tabler.io
+* Copyright 2018-2023 The Tabler Authors
+* Copyright 2018-2023 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
 <html lang="en">
-<head>
-    {% load static %}
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-
-<!------------------LIght BOx for Gallery-------------->
-<link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
-<script type="text/javascript" src="{% static 'js/lightbox-plus-jquery.min.js' %}"></script>
-<script defer data-api="/stats/api/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script>
-<meta name="msapplication-TileColor" content=""/>
-<meta name="theme-color" content=""/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="HandheldFriendly" content="True"/>
-<meta name="MobileOptimized" content="320"/>
-<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
-<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
-<meta name="description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!"/>
-<meta name="canonical" content="https://preview.tabler.io/">
-<meta name="twitter:image:src" content="https://preview.tabler.io/static/og.png">
-<meta name="twitter:site" content="@tabler_ui">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
-<meta name="twitter:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
-<meta property="og:image" content="https://preview.tabler.io/static/og.png">
-<meta property="og:image:width" content="1280">
-<meta property="og:image:height" content="640">
-<meta property="og:site_name" content="Tabler">
-<meta property="og:type" content="object">
-<meta property="og:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
-<meta property="og:url" content="https://preview.tabler.io/static/og.png">
-<meta property="og:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
-<!-- CSS files -->
-<link href="{% static 'dist/css/tabler.min.css' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/tabler-flags.min.css' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/tabler-payments.min.css' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/tabler-vendors.min.css' %}" rel="stylesheet"/>
-<link href="{% static 'dist/css/demo.min.css' %}" rel="stylesheet"/>
-<style>
-  @import url('https://rsms.me/inter/inter.css');
-  :root {
-      --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-  }
-  body {
-      font-feature-settings: "cv03", "cv04", "cv11";
-  }
-</style>
-<!------------------LIght BOx for Gallery-------------->
-<title>Application-1</title>
-</head>
-<body>
-	<script src="{% static 'dist/js/demo-theme.min.js'%}"></script>
-    <!-------------------------------NAvigation Starts------------------>
-    <nav class="navbar navbar-expand-md navbar-dark mb-4" style="background-color:#3097D1">
-    <a href="index.html" class="navbar-brand"><img src="img/brand-white.png" alt="logo" class="img-fluid" width="80px" height="100px"></a>
-
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#responsive"><span class="navbar-toggler-icon"></span></button>
-
-
-    <div class="collapse navbar-collapse" id="responsive">
-        <ul class="navbar-nav mr-auto text-capitalize">
-            <li class="nav-item"><a href="index.html" class="nav-link active">home</a></li>
-            <li class="nav-item"><a href="profile.html" class="nav-link">profile</a></li>
-            <li class="nav-item"><a href="#modalview" class="nav-link" data-toggle="modal">messages</a></li>
-            <li class="nav-item"><a href="notification.html" class="nav-link">docs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link d-md-none">growl</a></li>
-            <li class="nav-item"><a href="#" class="nav-link d-md-none">logout</a></li>
-
-        </ul>
-
-        <form action="" class="form-inline ml-auto d-none d-md-block">
-            <input type="text" name="search" id="search" placeholder="Search" class="form-control form-control-sm">
-        </form>
-        <a href="notification.html" class="text-decoration-none" style="color:#CBE4F2;font-size:22px;"><i class="far fa-bell ml-3 d-none d-md-block"></i></a> 
-        
-		
-		{% if request.user.is_authenticated %}
-		<!-- <img src="{% static 'img/avatar-dhg.png' %}" alt="" class="rounded-circle ml-3 d-none d-md-block" width="32px" height="32px"> -->
-		
-		<!-- <a href="{% url 'logout' %}" style="color:white; text-decoration: none;">Выйти</a> -->
-		
-		<div class="nav-item dropdown">
-			<a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-			  <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
-			  <div class="d-none d-xl-block ps-2">
-				<div>{{request.user.username}}</div>
-				<div class="mt-1 small text-secondary">UI Designer</div>
-			  </div>
-			</a>
-			<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-			  <a href="#" class="dropdown-item">Status</a>
-			  <a href="./profile.html" class="dropdown-item">Profile</a>
-			  <a href="#" class="dropdown-item">Feedback</a>
-			  <div class="dropdown-divider"></div>
-			  <a href="./settings.html" class="dropdown-item">Settings</a>
-			  <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <script defer data-api="/stats/api/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script>
+    <meta name="msapplication-TileColor" content=""/>
+    <meta name="theme-color" content=""/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="MobileOptimized" content="320"/>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+    <meta name="description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!"/>
+    <meta name="canonical" content="https://preview.tabler.io/">
+    <meta name="twitter:image:src" content="https://preview.tabler.io/static/og.png">
+    <meta name="twitter:site" content="@tabler_ui">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
+    <meta name="twitter:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
+    <meta property="og:image" content="https://preview.tabler.io/static/og.png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
+    <meta property="og:site_name" content="Tabler">
+    <meta property="og:type" content="object">
+    <meta property="og:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
+    <meta property="og:url" content="https://preview.tabler.io/static/og.png">
+    <meta property="og:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
+    <!-- CSS files -->
+    <link href="{% static 'dist/css/tabler.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'dist/css/tabler-flags.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'dist/css/tabler-payments.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'dist/css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'dist/css/demo.min.css' %}" rel="stylesheet"/>
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+      	font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+  </head>
+  <body >
+    <script src="./dist/js/demo-theme.min.js?1685973381"></script>
+    <div class="page">
+		 <header class="navbar navbar-expand-md d-print-none" >
+			<div class="container-xl">
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+				<a href=".">
+				  <img src="{% static 'dist/img/pynet-logo.png' %}"  alt="Tabler" class="navbar-brand-image me-3">
+				  PyNet
+				</a>
+			  </h1>
+			  <div class="navbar-nav flex-row order-md-last">
+				<div class="nav-item d-none d-md-flex me-3">
+				  <div class="btn-list">
+					<a href="https://github.com/tabler/tabler" class="btn" target="_blank" rel="noreferrer">
+					  <!-- Download SVG icon from http://tabler-icons.io/i/brand-github -->
+					  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+					  Source code
+					</a>
+					<a href="https://github.com/sponsors/codecalm" class="btn" target="_blank" rel="noreferrer">
+					  <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+					  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+					  Sponsor
+					</a>
+				  </div>
+				</div>
+				<div class="d-none d-md-flex">
+				  <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip"
+	 data-bs-placement="bottom">
+					<!-- Download SVG icon from http://tabler-icons.io/i/moon -->
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
+				  </a>
+				  <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip"
+	 data-bs-placement="bottom">
+					<!-- Download SVG icon from http://tabler-icons.io/i/sun -->
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
+				  </a>
+				  <div class="nav-item dropdown d-none d-md-flex me-3">
+					<a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
+					  <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
+					  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
+					  <span class="badge bg-red"></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
+					  <div class="card">
+						<div class="card-header">
+						  <h3 class="card-title">Last updates</h3>
+						</div>
+						<div class="list-group list-group-flush list-group-hoverable">
+						  <div class="list-group-item">
+							<div class="row align-items-center">
+							  <div class="col-auto"><span class="status-dot status-dot-animated bg-red d-block"></span></div>
+							  <div class="col text-truncate">
+								<a href="#" class="text-body d-block">Example 1</a>
+								<div class="d-block text-secondary text-truncate mt-n1">
+								  Change deprecated html tags to text decoration classes (#29604)
+								</div>
+							  </div>
+							  <div class="col-auto">
+								<a href="#" class="list-group-item-actions">
+								  <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+								  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+								</a>
+							  </div>
+							</div>
+						  </div>
+						  <div class="list-group-item">
+							<div class="row align-items-center">
+							  <div class="col-auto"><span class="status-dot d-block"></span></div>
+							  <div class="col text-truncate">
+								<a href="#" class="text-body d-block">Example 2</a>
+								<div class="d-block text-secondary text-truncate mt-n1">
+								  justify-content:between ⇒ justify-content:space-between (#29734)
+								</div>
+							  </div>
+							  <div class="col-auto">
+								<a href="#" class="list-group-item-actions show">
+								  <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+								  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-yellow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+								</a>
+							  </div>
+							</div>
+						  </div>
+						  <div class="list-group-item">
+							<div class="row align-items-center">
+							  <div class="col-auto"><span class="status-dot d-block"></span></div>
+							  <div class="col text-truncate">
+								<a href="#" class="text-body d-block">Example 3</a>
+								<div class="d-block text-secondary text-truncate mt-n1">
+								  Update change-version.js (#29736)
+								</div>
+							  </div>
+							  <div class="col-auto">
+								<a href="#" class="list-group-item-actions">
+								  <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+								  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+								</a>
+							  </div>
+							</div>
+						  </div>
+						  <div class="list-group-item">
+							<div class="row align-items-center">
+							  <div class="col-auto"><span class="status-dot status-dot-animated bg-green d-block"></span></div>
+							  <div class="col text-truncate">
+								<a href="#" class="text-body d-block">Example 4</a>
+								<div class="d-block text-secondary text-truncate mt-n1">
+								  Regenerate package-lock.json (#29730)
+								</div>
+							  </div>
+							  <div class="col-auto">
+								<a href="#" class="list-group-item-actions">
+								  <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+								  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+								</a>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				
+				{% if request.user.is_authenticated %}
+				<div class="nav-item dropdown">
+				  <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+					<span class="avatar avatar-sm" style="background-image: url(./static/avatars/002f.jpg)"></span>
+					<div class="d-none d-xl-block ps-2">
+					  <div>{{ request.user.username }}</div>
+					  <div class="mt-1 small text-secondary">{{request.user.full_name }}</div>
+					</div>
+				  </a>
+				  <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+					<a href="#" class="dropdown-item">Status</a>
+					<a href="{% url 'profile' request.user.pk %}" class="dropdown-item">Профиль</a>
+					<a href="#" class="dropdown-item">Feedback</a>
+					<div class="dropdown-divider"></div>
+					<a href="#" class="dropdown-item">Редактировать профиль</a>
+					<a href="{% url 'logout' %}" class="dropdown-item">Выйти</a>
+				  </div>
+				</div>
+				{% else %}
+					<a href="{% url 'login' %}" class="nav-link d-flex lh-1 text-reset p-0">
+						Войти
+					</a>
+				{% endif %}
+			 
 			</div>
-		  </div>
-		{% else %}
-		<a href="{% url 'login' %}" style="text-decoration: none; color:#fff; margin-left: 10px;">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-				<path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
-				<path d="M20 12h-13l3 -3m0 6l-3 -3"></path>
-			</svg>
-			  Войти
-		</a>
-		{% endif %}
+			</div>
+		  </header>
+		  <header class="navbar-expand-md">
+			<div class="collapse navbar-collapse" id="navbar-menu">
+			  <div class="navbar">
+				<div class="container-xl">
+				  <ul class="navbar-nav">
+					<li class="nav-item active">
+					  <a class="nav-link" href="{% url 'index' %}" >
+						<span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+								<path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+								<path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+								<path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+							 </svg>
+						</span>
+						<span class="nav-link-title">
+						  Лента
+						</span>
+					  </a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" href="./#" >
+						<span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
+						  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+						</span>
+						<span class="nav-link-title">
+							Рекомендации
+						</span>
+						<span class="badge badge-sm bg-red">2</span>
+					  </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./#" >
+						  <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+								<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+								<path d="M21 21l-6 -6"></path>
+							 </svg>
+						  </span>
+						  <span class="nav-link-title">
+							  Поиск
+						  </span>
+						 
+						</a>
+					  </li>
+					<li class="nav-item dropdown">
+					  <a class="nav-link dropdown-toggle" href="#navbar-third" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+						<span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
+						  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+						</span>
+						<span class="nav-link-title">
+						  Third
+						</span>
+					  </a>
+					  <div class="dropdown-menu">
+						<a class="dropdown-item" href="./#">
+						  First
+						</a>
+						<a class="dropdown-item" href="./#">
+						  Second
+						</a>
+						<a class="dropdown-item" href="./#">
+						  Third
+						</a>
+					  </div>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link disabled" href="./#" >
+						<span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
+						  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+						</span>
+						<span class="nav-link-title">
+						  Disabled
+						</span>
+					  </a>
+					</li>
+				  </ul>
+				  <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+					<form action="./" method="get" autocomplete="off" novalidate>
+					  <div class="input-icon">
+						<span class="input-icon-addon">
+						  <!-- Download SVG icon from http://tabler-icons.io/i/search -->
+						  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+						</span>
+						<input type="text" value="" class="form-control" placeholder="Search…" aria-label="Search in website">
+					  </div>
+					</form>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </header>
 
+		  {% block content %}
 
-    </div>
-
-
-
-
-
-    </nav>
-
-    {% block content %}
-
-    {% endblock %}
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-    <script src="{% static 'dist/libs/apexcharts/dist/apexcharts.min.js' %}" defer></script>
+		  {% endblock %}
+	</div>
+	<script src="{% static 'dist/libs/apexcharts/dist/apexcharts.min.js' %}" defer></script>
     <script src="{% static 'dist/libs/jsvectormap/dist/js/jsvectormap.min.js' %}" defer></script>
     <script src="{% static 'dist/libs/jsvectormap/dist/maps/world.js' %}" defer></script>
     <script src="{% static 'dist/libs/jsvectormap/dist/maps/world-merc.js' %}" defer></script>
@@ -728,5 +902,5 @@
       });
       // @formatter:on
     </script>
-</body>
+  </body>
 </html>
