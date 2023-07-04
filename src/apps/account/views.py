@@ -55,37 +55,42 @@ class UsersSearchListView(ListView):
     
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        context['search_text']=self.request.Get.get('query')
+        context['search_text'] = self.request.Get.get('query')
         return context
+
+
+
+
 
 
 
 
 @login_required(login_url='login')
 def follow(request, pk):
-    profile = User.objects.get(pk=pk).profile
-    if request.user.profile != profile:
-        if profile not in request.user.profile.follows.all():
-            request.user.profile.follows.add(profile)
-            messages.success(request, f'Вы подписались на {profile.user.username}')
+    follow_user = User.objects.get(pk=pk)
+    if request.user != follow_user:
+        if request.user not in follow_user.followers.all():
+            follow_user.followers.add(request.user)
+            messages.success(request, f'Вы подписались на {follow_user.username}')
         else:
-            messages.info(request, f'Вы уже подписаны на {profile.user.username}')
+            messages.info(request, f'Вы уже подписаны на {follow_user.username}')
     else:
         messages.info(request, 'Вы не можете подписаться на самого себя')
-    return redirect('index')
+    return redirect(reverse_lazy("profile", kwargs={"pk":follow_user.pk}))
+
 
 @login_required(login_url='login')
 def unfollow(request, pk):
-    profile = User.objects.get(pk=pk).profile
-    if request.user.profile != profile:
-        if profile in request.user.profile.follows.all():
-            request.user.profile.follows.remove(profile)
-            messages.success(request, f'Вы отписались от {profile.user.username}')
+    unfollow_user = User.objects.get(pk=pk)
+    if request.user != unfollow_user:
+        if request.user in unfollow_user.followers.all():
+            unfollow_user.followers.remove(request.user)
+            messages.success(request, f'Вы отписались от {unfollow_user.username}')
         else:
-            messages.info(request, f'Вы не были подписаны на {profile.user.username}')
+            messages.info(request, f'Вы не были подписаны на {unfollow_user.username}')
     else:
         messages.info(request, 'Вы не можете отписаться от самого себя')
-    return redirect('index')
+    return redirect(reverse_lazy("profile", kwargs={"pk":unfollow_user.pk}))
 
 
 # class UserRegisterView(CreateView):
@@ -116,3 +121,7 @@ def register_user(request):
     return render(request, 'register.html', context)
 
 
+
+def get_user_profile(request, pk):
+    user = User.objects.get(id=pk)
+    return render(request,"profile.html", {"user":user})

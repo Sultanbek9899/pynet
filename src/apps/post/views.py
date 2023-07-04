@@ -1,16 +1,36 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+
 # Create your views here.
 
 from .forms import *
 
+class IndexView(FormMixin, ListView):
+    form_class = AddPostForm
+    model = Post
+    success_url = "index"
+    template_name="index.html"
 
-
-class IndexPageView(TemplateView):
-    template_name = "index.html"
-
+    def form_valid(self, form, *args, **kwargs):    
+        post = form.save(commit=False)
+        post.author = self.request.user
+        post.save()
+        return super().form_valid(form)
+    
+    def get_queryset(self) -> QuerySet[Any]:
+        user = self.request.user
+        following = user.followings.all()
+        posts = Post.objects.filter(
+            Q(author__in=following) | Q(author=user)
+            ).order_by('-created_at')
+        return posts
+    
 
 @login_required
 def add_post(request):
@@ -22,5 +42,4 @@ def add_post(request):
             post.save()
             return redirect('index')
     else: 
-        form = AddPostForm()
-        return render(request, 'index.html', {'form': form})
+        redirect("index")
