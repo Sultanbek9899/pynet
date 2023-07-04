@@ -6,12 +6,13 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
 from .forms import *
 
-class IndexView(FormMixin, ListView):
+class IndexView(LoginRequiredMixin,FormMixin, ListView):
     form_class = AddPostForm
     model = Post
     success_url = "index"
