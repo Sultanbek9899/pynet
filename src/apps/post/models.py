@@ -10,7 +10,7 @@ class Post(models.Model):
     image = models.ImageField("Картинка", upload_to="post/image/", blank=True, null=True)
 
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
-    updated_at = models.DateTimeField("Время добавления", auto_now=True)
+    updated_at = models.DateTimeField("Время обновления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
 
     class Meta:
