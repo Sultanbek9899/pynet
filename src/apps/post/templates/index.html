@@ -3,325 +3,195 @@
 {% load humanize %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
 
-
-            <!--------------------------left columns  start-->
-
-            <div class="col-12 col-lg-3">
-
-                <div class="left-column">
-
-
-                    <div class="card card-left1 mb-4" >
-                        <img src="{% static 'img/photo-1455448972184-de647495d428.jpg' %}" alt="" class="card-img-top img-fluid">
-                        <div class="card-body text-center ">
-                            <img src="{% static 'img/avatar-dhg.png' %}" alt="img" width="120px" height="120px" class="rounded-circle mt-n5">
-                            <h5 class="card-title">{{request.user.username}}</h5>
-                            <h6 class="cart-text"> {{request.user.full_name}}</h6>
-                            <p class="card-text text-justify mb-2">I wish i was a little bit taller, wish i was a baller, wish i had a girl… also.</p>
-                            <ul class="list-unstyled nav justify-content-center">
-                            <a href="#" class="text-dark text-decoration-none"> <li class="nav-item">Friends <br> <strong>12M</strong></li></a>
-                            <a href="#" class="text-dark text-decoration-none"> <li class="nav-item">Enimes <br> <strong>1</strong></li></a> 
-                            </ul>
-
-                        </div>
-
-
-
-
-                    </div>
-
-
-                    <div class="card shadow-sm card-left2 mb-4">
-
-                        <div class="card-body">
-
-                                <h5 class="mb-3 card-title">About <small><a href="#" class="ml-1">Edit</a></small></h5>
-
-                                <p class="card-text"> <i class="fas fa-calendar-week mr-2"></i> Went to <a href="#" class="text-decoration-none">oh canada</a></p>
-
-                                <p class="card-text"> <i class="fas fa-user-friends mr-2"></i> Become a friend with <a href="#" class="text-decoration-none">obama</a></p>
-                                <p class="card-text"> <i class="far fa-building mr-2"></i> Work at <a href="#" class="text-decoration-none">Github</a></p>
-                                <p class="card-text"> <i class="fas fa-home mr-2"></i> Live in <a href="#" class="text-decoration-none">San francisco</a></p>
-                                <p class="card-text"> <i class="fas fa-map-marker mr-2"></i> From <a href="#" class="text-decoration-none">Seattle, WA</a></p>
-
-
-
-
-                        </div>
-                    
-
-
-
-
-                    </div>
-
-
-
-
-                    <div class="card shadow-sm card-left3 mb-4">
-
-                        <div class="card-body">
-                            <h5 class="card-title">Photos<small class="ml-2"><a href="#">.Edit </a></small></h5>
-
-                            <div class="row">
-                                <div class="col-6 p-1">
-                                    <a href="img/left1.jpg" data-lightbox="id" ><img src="img/left1.jpg" alt="img" class="img-fluid my-2"></a>  
-                                    <a href="img/left2.jpg"data-lightbox="id"><img src="img/left2.jpg" alt="img" class="img-fluid my-2"></a>
-                                    <a href="img/left3.jpg"data-lightbox="id"><img src="img/left3.jpg" alt="img" class="img-fluid my-2"></a>
-
-                                </div>
-
-
-                                <div class="col-6 p-1">
-                                        <a href="img/left4.jpg"data-lightbox="id"><img src="img/left4.jpg" alt="img" class="img-fluid my-2"></a>
-                                        <a href="img/left5.jpg"data-lightbox="id"><img src="img/left5.jpg" alt="img" class="img-fluid my-2"></a>
-                                        <a href="img/left6.jpg"data-lightbox="id"><img src="img/left6.jpg" alt="img" class="img-fluid my-2"></a>
-
-                                    </div>
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-
-
-                        </div>
-
-
-
-
-                
-
-                    
-
-
-
-
-
-                </div>
-
-
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-    <!--------------------------Ends Left columns-->
-
-
-
-
-
-    <!---------------------------------------Middle columns  start---------------->
-
-
-
-            
-            <div class="col-12 col-lg-6" >
-
-
-                <div class="middle-column">
-
-
-                    <div class="card" >
-
-
-                        <div class="card-header bg-transparent">
-
-                           
-
-                            <form class="form-inline" action="{% url 'add_post' %}"  method='post' enctype="multipart/form-data">
-                                
-                                {% csrf_token %}
-                        
-                                <div class="input-group w-100">
+<div class="container my-style">
+    <div class="row">
+        <!-- Средние столбцы -->
+        <div class="col-12 col-lg-8">
+            <div class="middle-column">
+                <div class="card">
+                    <div class="card-header bg-transparent">
+                        <form class="form-inline" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="input-group w-100 big-post">
                                 {{ form.description }}
-
                                 
                                 <div class="input-group-append" for="iiim">
                                     <label class="input-group-text">
-                                                <i class="fas fa-camera"></i>
-                                                 {{form.image}}
+                                        <i class="fas fa-camera"></i>
+                                        {{form.image}}
                                     </label>
                                 </div>
-                                
-                                </div>
-                                <div class="mt-3">
+                            </div>
+                            <div class="mt-3">
                                 <button type="submit" id="upload-btn" class="btn btn-primary">Опубликовать</button>
                                 <span id="file-name" style="margin: auto 8px;"></span>
-                                </div>
-
-
-                        
-                                
-                            
-                            </form>
                             </div>
-
-                        </div>
-
-
-
-
-
-
-                        
-{% for post in object_list %}
-    <div class="card-body">
-        <div class="media">
-
-            <img src="img/avatar-mdo.png" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
-            <div class="media-body">
-                    <a href="{% url 'profile' post.author.pk %}">
-                        <h4>{{ post.author.username }}</h4>
-                    </a>
-                <p class="text-justify">{{post.description }}</p>
-            {% if post.image %}
-            <a href="img/mid5.jpg" data-lightbox="id">
-                <img src="{{post.image.url }}" alt="" class="img-fluid shadow-sm img-thumbnail">   
-            </a>
-            {% endif  %}
-
-            </div>
-            <small class="text-muted">{{post.created_at|timesince}} назад</small>
-        </div>
-    </div>
-    <hr>
-{% empty %}
-    <div class="card-body">
-        <h5>У вас ещё нету постов в ленте. Подпишитесь на кого-то, чтобы видеть публикации</h5>
-    </div>
-{% endfor %}   
-    </div>
-    </div>
-
-    </div>
-    <br> <br> <br><br> <br> <br>
-
-    <!------------------------Middle column Ends---------------->
-
-    <!---------------------------Statrs Right Columns----------------->
-    <div class="col-12 col-lg-3">
-    <div class="right-column">
-
-        <div class="card shadow-sm mb-4" >
-            <div class="card-body">
-                <h6 class="card-title">Sponsored</h6>
-                <img src="img/right1.jpg" alt="card-img" class="card-img mb-3">
-                <p class="card-text text-justify"> <span class="h6">It might be time to visit Iceland.</span> Iceland is so chill, and everything looks cool here. Also, we heard the people are pretty nice.  What are you waiting for?</p>
-                <a href="#" class="btn btn-outline-info card-link btn-sm">Buy a ticket</a>
-            </div>
-
-        </div>
-        <div class="card shadow-sm mb-4">
-
-            <div class="card-body">
-
-                    <h6 class="card-title ">Likes <a href="#" class="ml-1"><small>.View All</small> </a> </h6>
-                    <div class="row no-gutters d-none d-lg-flex">
-                        <div class="col-6 p-1">
-                                <img src="img/avatar-dhg.png" alt="img" width="80px" height="80px" class="rounded-circle mb-4">
-                                <img src="img/avatar-fat.jpg" alt="img" width="80px" height="80px" class="rounded-circle">
-
-
-
-                        </div>
-                        <div class="col-6 p-1 text-left">
-                            <h6>Jacob Thornton @fat</h6>
-                            <a href="#" class="btn btn-outline-info btn-sm mb-3"><i class="fas fa-user-friends"></i>Follow </a>
-
-                            <h6>Mark otto</h6>
-                            <a href="#" class="btn btn-outline-info  btn-sm"><i class="fas fa-user-friends"></i>Follow </a>
-
-                        </div>
-
+                        </form>
                     </div>
+                </div>
 
-            </div>
-
-            <div class="card-footer">
-
-                <p class="lead" style="font-size:18px;">Dave really likes these nerds, no one knows why though.</p>
-            </div>
-            
-
-
-        </div>
-
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>&copy; 2018 Bootstrap
-
-
-
-                        <a href="#">About</a>
-                        <a href="#">Help</a>
-                        <a href="#">Terms</a>
-                        <a href="#">Privacy</a>
-                        <a href="#">Cookies</a>
-                        <a href="#">Ads </a>
-                        <a href="#">Info</a>
-                        <a href="#">Brand</a>
-                        <a href="#">Blog</a>
-                        <a href="#">Status</a>
-                        <a href="#">Apps</a>
-                        <a href="#">Jobs</a>
-                        <a href="#">Advertise</a>
+                {% for post in object_list %}
+                <div class="card-body lipsyha">
+                    <div class="starland">        
+                        <div class="media">
+                        
+                        <div class="media-body">
+                            <div class="post-header">
+                                <img src="img/avatar-mdo.png"  alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                <div>
+                                    <a href="{% url 'profile' post.author.pk %}">
+                                        <p>{{ post.author.username }}</p>
+                                    </a>
+                                    <p>admin admin</p>
+                                </div>
+                            </div>
+                            <p class="text-justify new_size">{{post.description }}</p>
+                            {% if post.image %}
+                                <!-- <a href="img/mid5.jpg" data-lightbox="id"> -->
+                                    <img src="{{post.image.url }}" alt="" class="img-fluid shadow-sm img-thumbnail">   
+                                <!-- </a> -->
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">{{post.created_at|timesince}} назад</small>
+                        </div>
+                    </div>
+                    <div class="likes">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-heart" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+                         </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-message" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M8 9h8"></path><path d="M8 13h6"></path>
+                            <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-5l-5 3v-3h-2a3 3 0 0 1-3-3v-8a3 3 0 0 1 3-3h12z"></path>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-share-3" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z"></path>
+                        </svg>
+                         
                     
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                </p>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="card-body">
+                    <h5>У вас ещё нету постов в ленте. Подпишитесь на кого-то, чтобы видеть публикации</h5>
+                </div>
+                {% endfor %}
             </div>
-
         </div>
 
+        <!-- Правые столбцы -->
+        <div class="col-12 col-lg-4">
+            <div class="right-column sticky-top">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h6 class="card-title">Информация</h6>
+                        <img src="img/right1.jpg" alt="card-img" class="card-img mb-3">
+                        <p class="card-text text-justify">
+                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</span>
+                            <a href="#" class="text-decoration-none">Read More</a>
+                        </p>
+                    </div>
+                </div>
 
-
-
-
-
-
-
-
-    </div>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Интересное у Друзей</h6>
+                        <ul class="list-unstyled">
+                            <li class="media my-2">
+                                <img src="img/right2.jpg" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                <div class="media-body">
+                                    <a href="#" class="text-decoration-none"><strong>@usernamexyz</strong></a>
+                                    <p class="text-muted mb-0">*Самый залайканный пост*</p>
+                                </div>
+                            </li>
+                            <li class="media my-2">
+                                <img src="img/right3.jpg" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                <div class="media-body">
+                                    <a href="#" class="text-decoration-none"><strong>@usernamexyz</strong></a>
+                                    <p class="text-muted mb-0">UI Designer</p>
+                                </div>
+                            </li>
+                            <li class="media my-2">
+                                <img src="img/right4.jpg" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                <div class="media-body">
+                                    <a href="#" class="text-decoration-none"><strong>@usernamexyz</strong></a>
+                                    <p class="text-muted mb-0">Web Developer</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-
-
+        </div>
     </div>
-    </div>  
+</div>
 
     <style>
         .btn-success {
             background-color: rgb(99, 195, 128);
         }
+
+        .right-column.sticky-top {
+            position: sticky;
+            top: 10px;
+        }
+        .container.my-style {
+            margin-top: 10px;
+            background-color: #f3f3f2;
+        } 
+
+        .card-body.lipsyha{
+            margin-bottom: 20px;
+            /* padding-bottom: 50px; */
+            background-color: #ffffff;
+            border-radius: 15px;
+        }
+        .likes{
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 20px;
+        }
+        .starland{
+            margin: 5px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+       
+        .iconw {
+            width: 32px;
+            height: 32px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-right: 5px;
+        }
+        .text-justify.new_size{
+            font-size: 16px;
+        }
+        .post-header {
+            margin-bottom: 10px;
+            border-bottom: 0.5px solid #f3f3f2 ;
+        }
+        .post-header img{
+            display: inline-block;
+        }
+        .post-header div{
+            display: inline-block;
+            margin: auto 0px;
+        }
+        .post-header p{
+            margin: 0;
+            padding: 0;
+           
+        }
+        .form-control.form-control-md.big-post{
+                height: 45px;
+                
+        }
+        
+        
 
     </style>
         
