@@ -1,6 +1,8 @@
+from src.apps.account.models import User
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
+
 
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
@@ -31,6 +33,14 @@ class IndexView(LoginRequiredMixin,FormMixin, ListView):
             Q(author__in=following) | Q(author=user)
             ).order_by('-created_at')
         return posts
+
+def search(request):
+    form = SearchForm(request.GET)
+    results = []
+    if form.is_valid():
+        query = form.cleaned_data.get('query')
+        results = User.objects.filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+    return render(request, 'search.html', {'form': form, 'results': results})
     
 
 @login_required

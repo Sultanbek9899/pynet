@@ -12,5 +12,7 @@ class AddPostForm(forms.ModelForm):
             'image': forms.FileInput(attrs={'class': 'form-control', 'id': 'photo-upload', 'hidden': 'true', 'name': 'image', 'style': 'display: none;'}),
         }
 
+class SearchForm(forms.Form):
+    query = forms.CharField(label="", max_length=255, required=False)
       
         

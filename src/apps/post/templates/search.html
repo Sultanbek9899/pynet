@@ -1,0 +1,17 @@
+<!-- search_results.html -->
+<form method="GET" action="{% url 'search' %}">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Поиск</button>
+</form>
+
+<p>Search results:</p>
+
+{% for user in results %}
+    <div>
+        <a href="">{{ user.username }}</p>
+        <p>{{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+{% empty %}
+    <p>No results found.</p>
+{% endfor %}
