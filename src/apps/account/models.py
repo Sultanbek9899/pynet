@@ -2,6 +2,7 @@ from django.db import models
 # from django.contrib.auth.models import User
 # Create your models here.
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class User(AbstractUser):
@@ -36,3 +37,4 @@ class User(AbstractUser):
     @property
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
+ 
