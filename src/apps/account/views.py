@@ -1,4 +1,5 @@
-from typing import Any
+from typing import Any, Optional
+from django.db import models
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,7 +13,7 @@ from django.contrib import messages
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from src.apps.post.models import Post
-from src.apps.account.forms import LoginForm, UserRegisterForm
+from src.apps.account.forms import LoginForm, UserRegisterForm, UserUpdateForm
 # Create your views here.
 from src.apps.account.models import User
 
@@ -31,8 +32,8 @@ class LoginView(FormView):
                 login(self.request, user)
                 return redirect("index")
             else:
-                HttpResponse("Ваш аккаунт не активен")
-        HttpResponse("Такого пользователя не существует или данные неверны")
+                return HttpResponse("Ваш аккаунт не активен")
+        return HttpResponse("Такого пользователя не существует или данные неверны")
     
 
       
@@ -125,3 +126,15 @@ def register_user(request):
 def get_user_profile(request, pk):
     user = User.objects.get(id=pk)
     return render(request,"profile.html", {"user":user})
+
+
+class UserUpdateProfile(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = "edit_profile.html"
+    queryset = User.objects.all()
+    form_class=UserUpdateForm
+    success_url = reverse_lazy("index")
+
+
+    def get_object(self):
+        return self.request.user
