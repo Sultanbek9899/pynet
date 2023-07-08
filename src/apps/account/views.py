@@ -124,4 +124,9 @@ def register_user(request):
 
 def get_user_profile(request, pk):
     user = User.objects.get(id=pk)
-    return render(request,"profile.html", {"user":user})
+    posts = Post.objects.filter(author=pk)
+    context = {
+        "user": user,
+        "posts": posts
+    }
+    return render(request,"profile.html", context)
