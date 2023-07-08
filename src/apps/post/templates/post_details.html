@@ -14,8 +14,12 @@
             <div class="panel panel-white3 post panel-shadow2">
                 <div class="post-heading">
                     <div class="pull-left image">
-                        <img src="img/avatar-mdo.png", class="img-circle avatar" alt="user profile image">
-                    </div>
+                       {% if post.author.avatar %}
+                      <img src="{{post.author.avatar.url}}" class="img-circle avatar" alt="user profile image">
+                        {% else %}
+                          <img src="{% static 'dist/img/default_profile.png'%}" alt=""  class="img-circle avatar">
+                        {% endif %}
+                      </div>
                     <div class="pull-left meta">
                         <div class="title h5">
                             <a href="{% url 'profile' post.author.pk %}"><b>{{ post.author.username }}</b></a>
@@ -33,7 +37,10 @@
                     <p>{{post.description }}</p> 
                     <div class="stats">
                         <a href="{% url 'like_post' post.id %}" class="btn btn-default stat-item">
-                            {{post.likes.count}}
+                           
+                          {{post.likes.count}}
+                           
+                           
                             {% if user in post.likes.all %}
                               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -48,7 +55,7 @@
                             {% endif %}
                         </a>
                         <p>
-                            {{post.comments.count}}
+                            {{ post.comments.count }}
                             <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-message" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M8 9h8"></path><path d="M8 13h6"></path>
@@ -77,7 +84,11 @@
                         {% for comment in comments %}
                             <li class="comment">
                                 <a class="pull-left" href="{% url 'profile' post.author.pk %}">
-                                    <img class="avatar" src="https://bootdey.com/img/Content/user_3.jpg" alt="avatar">
+                                  {% if post.author.avatar %}
+                                  <img src="{{post.author.avatar.url}}" class="avatar" alt="user profile image">
+                                    {% else %}
+                                      <img src="{% static 'dist/img/default_profile.png'%}" alt=""  class="avatar">
+                                    {% endif %}
                                 </a>
                                 <div class="comment-body">
                                     <div class="comment-heading">

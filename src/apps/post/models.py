@@ -11,6 +11,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField("Время обновления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
+    
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
@@ -19,7 +20,7 @@ class Post(models.Model):
         return f"#{self.id}-{self.description[:50]}"
     
 class Comment(models.Model):
-    comments= models.TextField()
+    comments = models.TextField()
     created_at = models.DateTimeField("Дата добавления", auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="authored_comments")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
