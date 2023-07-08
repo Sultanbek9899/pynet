@@ -38,12 +38,17 @@
                         
                         <div class="media-body">
                             <div class="post-header">
-                                <img src="img/avatar-mdo.png"  alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                
+                                {% if post.author.avatar %}
+                                <img src="{{post.author.avatar.url  }}"  alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                {% else %}
+                                <img src="{% static 'dist/img/default_profile.png' %}" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                {%endif %}
                                 <div>
                                     <a href="{% url 'profile' post.author.pk %}">
                                         <p>{{ post.author.username }}</p>
                                     </a>
-                                    <p>admin admin</p>
+                                    <p>{{ post.author.full_name }}</p>
                                 </div>
                             </div>
                             <p class="text-justify new_size">{{post.description }}</p>

@@ -41,6 +41,7 @@
             <div class="col-12 col-md-9 d-flex flex-column">
               <div class="card-body">
                 <form method="post" enctype="multipart/form-data">
+                  {%csrf_token%}
                 <h2 class="mb-4">My Account</h2>
                 <h3 class="card-title">Profile Details</h3>
                 <div class="row align-items-center">
@@ -48,11 +49,10 @@
                   <div class="col-auto">
                     <!-- <span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg)"></span> -->
                     {%if form.instance.avatar%} 
-                    <img src="{{form.instance.avatar.url}}" alt=""
-                    style="background-image: url(./static/avatars/000m.jpg)">
+                    <img src="{{form.instance.avatar.url}}" alt=""  style="background-image: url(./static/avatars/000m.jpg)">
                     {%endif%}
                   </div>
-                  {%csrf_token%}
+
                   <div class="form-group col-md-3">
                     <label>Change avatar:</label>
                     {{form.avatar}}
@@ -60,17 +60,17 @@
                 </div>
                 <h3 class="card-title mt-4">Profile</h3>
                 <div class="row g-3">
-                    {%csrf_token%}
+
                   <div class="col-md">
                     <div class="form-label">First name</div>
                     {{form.first_name}}
                   </div>    
-                  {%csrf_token%}              
+
                   <div class="col-md">
                     <div class="form-label">Last name</div>
                     {{form.last_name}}
                   </div>
-                  {%csrf_token%}
+
                   <div class="col-md"> 
                     <div class="form-label">Birthday</div>
                     {{form.birthday}}
@@ -79,17 +79,13 @@
                 <h3 class="card-title mt-4">Email</h3>
                 <div>
                   <div class="row g-2">
-                    {%csrf_token%}
+
                     <div class="col-auto">
                         {{form.email}}
                     </div>
-                    <div class="col-auto"><a href="#" class="btn">
-                        Change
-                      </a></div>
-                  </div>
                 </div>
                 <h3 class="card-title mt-4">Private profile:</h3>
-                {%csrf_token%}
+              
                 <div>
                   <label class="form-check form-switch form-switch-lg">
                     <input class="form-check-input" type="checkbox" >
