@@ -26,3 +26,41 @@ class UserRegisterForm(UserCreationForm):
                   "last_name",
                   ]
         unique_together = ["username"]
+
+class UserUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = (
+            "avatar",
+            "email",
+            "first_name",
+            "last_name",
+            "birthday",
+            "is_private",
+            )
+        widgets = {
+            "avatar": forms.FileInput(
+                attrs={"class":"form-control"}
+            ),
+            "email": forms.EmailInput(
+                attrs={"class":"form-control"}
+            ), 
+            "first_name": forms.TextInput(
+                attrs={"class":"form-control"}
+            ),
+            "last_name": forms.TextInput(
+                attrs={"class":"form-control"}
+            ),
+            "birthday": forms.DateInput(
+                attrs ={"class":"form-control", "type":"date"},
+                format=("%Y-%m-%d")
+            ),
+            "is_private": forms.CheckboxInput(
+                attrs={
+                    "class":"form-check-input",
+                    "type":"checkbox"
+                }
+            ),
+        }
+
