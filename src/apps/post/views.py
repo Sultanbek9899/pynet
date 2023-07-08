@@ -44,3 +44,15 @@ def add_post(request):
             return redirect('index')
     else: 
         redirect("index")
+
+
+def recommendations_view(request):
+    posts = Post.objects.order_by("-rating")
+    context = {
+        'post': posts
+    }
+
+    return render(request, 'recommendations.html', context)
+
+    
+        

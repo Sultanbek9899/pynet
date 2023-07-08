@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+    <title>Рекомендации постов</title>
+</head>
+<body>
+    <h1>Рекомендации постов</h1>
+    <ul>
+        {% for recommendation in recommendations %}
+            <li>{{ recommendation }}</li>
+        {% endfor %}
+    </ul>
+</body>
+{% endblock %}
