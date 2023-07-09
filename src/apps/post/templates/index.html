@@ -11,7 +11,7 @@
             <div class="middle-column">
                 <div class="card">
                     <div class="card-header bg-transparent">
-                        <form class="form-inline" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+                        <form class="form-inline" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data" onkeydown="return event.key != 'Enter';">
                             {% csrf_token %}
                             <div class="input-group w-100 big-post">
                                 {{ form.description }}
