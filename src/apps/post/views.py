@@ -53,7 +53,7 @@ def add_post(request):
    
 
 def calculate_rating(post):
-    rating = post.comments.count() + post.author.followers.count() * 2
+    rating = post.comments.count() + ( post.author.followers.count() * 2 ) + (post.likes.count() * 3)
     return rating
 
 def recommendations_view(request):
