@@ -13,12 +13,6 @@ class Post(models.Model):
     updated_at = models.DateTimeField("Время добавления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
     # popularity = models.IntegerField("Единица популярности", default=0)  # Поле для хранения метрики популярности
-    
-    @property
-    def rating(self):
-        rating = self.comments.count() + self.author.followers.count() * 2
-        return self.popularity
-
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"

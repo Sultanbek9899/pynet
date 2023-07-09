@@ -45,14 +45,18 @@ def add_post(request):
     else: 
         redirect("index")
 
+   
+
+def calculate_rating(post):
+    rating = post.comments.count() + post.author.followers.count() * 2
+    return rating
 
 def recommendations_view(request):
-    posts = Post.objects.order_by("-rating")
+    posts = Post.objects.all()
+    sorted_posts = sorted(posts, key=calculate_rating, reverse=True)
     context = {
-        'post': posts
+        'posts': sorted_posts
     }
-
     return render(request, 'recommendations.html', context)
-
     
         
