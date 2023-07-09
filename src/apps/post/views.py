@@ -49,7 +49,7 @@ def add_post(request):
     else: 
         redirect("index")
 
-<<<<<<< HEAD
+
    
 
 def calculate_rating(post):
@@ -65,7 +65,7 @@ def recommendations_view(request):
     return render(request, 'recommendations.html', context)
     
         
-=======
+
 @login_required
 def post_details(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -116,4 +116,4 @@ def like_comment(request, comment_id):
         comment.likes.remove(user)
     comment.save()
     return redirect('post_details')
->>>>>>> 11aaa4ddb8d41ac14574cd0fa7e2124e6db595c1
+

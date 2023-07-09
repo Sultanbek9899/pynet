@@ -10,12 +10,9 @@ class Post(models.Model):
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
     updated_at = models.DateTimeField("Время обновления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
-<<<<<<< HEAD
-    # popularity = models.IntegerField("Единица популярности", default=0)  # Поле для хранения метрики популярности
-=======
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
     
->>>>>>> 11aaa4ddb8d41ac14574cd0fa7e2124e6db595c1
+
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
