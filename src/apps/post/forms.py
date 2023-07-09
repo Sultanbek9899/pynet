@@ -12,5 +12,12 @@ class AddPostForm(forms.ModelForm):
             'image': forms.FileInput(attrs={'class': 'form-control', 'id': 'photo-upload', 'hidden': 'true', 'name': 'image', 'style': 'display: none;'}),
         }
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comments'] 
+        widgets={
+            'comments': forms.TextInput(attrs={'class': 'form-control form-control-md', 'id': 'message', 'placeholder': 'Enter Comment'})
+        }
       
         
