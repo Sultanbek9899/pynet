@@ -24,7 +24,7 @@ class User(AbstractUser):
     followers = models.ManyToManyField("self", related_name="followings", symmetrical=False)
     is_private = models.BooleanField("Закрытый аккаунт", default=True)
     last_login = models.DateTimeField("Последнее посещение", null=True, blank=True)
-
+    bookmarks = models.ManyToManyField("post.Post")
 
     class Meta:
         verbose_name = "Пользователь"

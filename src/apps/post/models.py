@@ -12,7 +12,7 @@ class Post(models.Model):
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
     updated_at = models.DateTimeField("Время добавления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
-
+    
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"

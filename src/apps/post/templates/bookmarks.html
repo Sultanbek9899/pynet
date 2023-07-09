@@ -3,35 +3,14 @@
 {% load humanize %}
 
 {% block content %}
-
+      
 <div class="container my-style">
     <div class="row">
         <!-- Средние столбцы -->
         <div class="col-12 col-lg-8">
             <div class="middle-column">
-                <div class="card">
-                    <div class="card-header bg-transparent">
-                        <form class="form-inline" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div class="input-group w-100 big-post">
-                                {{ form.description }}
-                                
-                                <div class="input-group-append" for="iiim">
-                                    <label class="input-group-text">
-                                        <i class="fas fa-camera"></i>
-                                        {{form.image}}
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button type="submit" id="upload-btn" class="btn btn-primary">Опубликовать</button>
-                                <span id="file-name" style="margin: auto 8px;"></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
-                {% for post in object_list %}
+                {% for post in bookmarks%}
                 <div class="card-body lipsyha">
                     <div class="starland">        
                         <div class="media">
@@ -43,7 +22,7 @@
                                     <a href="{% url 'profile' post.author.pk %}">
                                         <p>{{ post.author.username }}</p>
                                     </a>
-                                    <p>admin admin</p>
+                                    <p>{{ post.author.full_name }}</p>
                                 </div>
                             </div>
                             <p class="text-justify new_size">{{post.description }}</p>
@@ -217,24 +196,6 @@
         
 
     </style>
-        
-    <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
-        var fileInput = document.getElementById('photo-upload');
-        var uploadBtn = document.getElementById('upload-btn');
-        var fileNameSpan = document.getElementById('file-name');
 
-        fileInput.addEventListener('change', function() {
-            if (fileInput.files.length > 0) {
-            uploadBtn.classList.add('btn-success');
-            fileNameSpan.textContent = fileInput.files[0].name; 
-            } else {
-            uploadBtn.classList.remove('btn-success');
-            fileNameSpan.textContent = '';  
-            }
-        });
-        });
-    </script>
-    
-{% endblock %}
+{% endblock%}
