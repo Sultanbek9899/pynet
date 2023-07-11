@@ -189,7 +189,11 @@
 				{% if request.user.is_authenticated %}
 				<div class="nav-item dropdown">
 				  <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-					<span class="avatar avatar-sm" style="background-image: url(./static/avatars/002f.jpg)"></span>
+					{% if request.user.avatar %}
+					<span class="avatar avatar-sm" style="background-image: url({{request.user.avatar.url}})"></span>
+					{% else %}
+					<span class="avatar avatar-sm" style="background-image: url('/static/dist/img/default_profile.png')"></span>
+					{% endif %}
 					<div class="d-none d-xl-block ps-2">
 					  <div>{{ request.user.username }}</div>
 					  <div class="mt-1 small text-secondary">{{request.user.full_name }}</div>
@@ -201,7 +205,7 @@
 					<a href="{% url 'bookmarks' %}" class="dropdown-item" style="padding-left: 10px;">Закладки</a>
 					<a href="#" class="dropdown-item">Feedback</a>
 					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item">Редактировать профиль</a>
+					<a href="{% url 'edit_profile' %}" class="dropdown-item">Редактировать профиль</a>
 					<a href="{% url 'logout' %}" class="dropdown-item">Выйти</a>
 				  </div>
 				</div>
