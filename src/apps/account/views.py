@@ -121,11 +121,17 @@ def register_user(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-
-
+  
+  
 def get_user_profile(request, pk):
     user = User.objects.get(id=pk)
-    return render(request,"profile.html", {"user":user})
+    posts = Post.objects.filter(author=pk)
+    context = {
+        "user": user,
+        "posts": posts,
+    }
+    return render(request, "profile.html", context)
+
 
 
 class UserUpdateProfile(LoginRequiredMixin, UpdateView):
@@ -138,3 +144,4 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
