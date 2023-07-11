@@ -120,7 +120,7 @@ def register_user(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-def get_user_posts(request, pk):
+def get_user_profile(request, pk):
     user = User.objects.get(id=pk)
     posts = Post.objects.filter(author=pk)
     context = {
