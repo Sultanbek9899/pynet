@@ -38,6 +38,8 @@ class UserUpdateForm(forms.ModelForm):
             "last_name",
             "birthday",
             "is_private",
+            "mobile",
+            "gender",
             )
         widgets = {
             "avatar": forms.FileInput(
@@ -60,6 +62,16 @@ class UserUpdateForm(forms.ModelForm):
                 attrs={
                     "class":"form-check-input",
                     "type":"checkbox"
+                }
+            ),
+            "mobile": forms.TextInput(
+                attrs={
+                    "class":"form-control"
+                }
+            ),
+            "gender":forms.Select(
+                attrs={
+                    "class":"form-control"
                 }
             ),
         }
