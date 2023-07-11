@@ -1,7 +1,11 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post, Comment
+from .forms import CommentForm
+import datetime
+from django.utils import timezone
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
@@ -44,3 +48,54 @@ def add_post(request):
             return redirect('index')
     else: 
         redirect("index")
+
+@login_required
+def post_details(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    comments = Comment.objects.filter(post=post).order_by('-created_at')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.save()
+            return redirect(reverse_lazy('post_details', kwargs={"pk":pk}))
+    else:
+        form = CommentForm()
+        context = {
+            'post': post,
+            'comments': comments,
+            'form': form,
+        }
+
+        return render(request, 'post_details.html', context)
+
+@login_required(login_url='login')
+def like_post(request, post_id):
+    user = request.user
+    post = get_object_or_404(Post, pk=post_id)
+    current_likes = post.likes.count()
+    if user not in post.likes.all():
+        post.likes.add(user)
+        current_likes += 1
+    else:
+        post.likes.remove(user)
+        current_likes -= 1
+    post.save()
+    previous_url = request.META.get('HTTP_REFERER')
+    return redirect(previous_url)
+
+
+@login_required(login_url='login')
+def like_comment(request, comment_id):
+    user = request.user
+    comment = get_object_or_404(Comment, pk=comment_id)
+
+    if user not in comment.likes.all():
+        comment.likes.add(user)
+    else: 
+        comment.likes.remove(user)
+    comment.save()
+    return redirect('post_details')

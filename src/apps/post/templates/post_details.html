@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}
+  
+
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<div class="container bootstrap snippets bootdey">
+    <div class="col-md-8">
+        <div class="col-sm-12">
+            <div class="panel panel-white3 post panel-shadow2">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                       {% if post.author.avatar %}
+                      <img src="{{post.author.avatar.url}}" class="img-circle avatar" alt="user profile image">
+                        {% else %}
+                          <img src="{% static 'dist/img/default_profile.png'%}" alt=""  class="img-circle avatar">
+                        {% endif %}
+                      </div>
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="{% url 'profile' post.author.pk %}"><b>{{ post.author.username }}</b></a>
+                        </div> 
+                        <h6 class="text-muted time">{{post.created_at|timesince}} назад</h6>
+                    </div>
+                </div>
+                <div class="post-image">
+                {% if post.image %}
+                    <img src="{{post.image.url }}" class="image" alt="image post">
+                {% endif %}
+                </div>
+                <div class="post-description">
+                    <h4></h4>
+                    <p>{{post.description }}</p> 
+                    <div class="stats">
+                        <a href="{% url 'like_post' post.id %}" class="btn btn-default stat-item">
+                           
+                          {{post.likes.count}}
+                           
+                           
+                            {% if user in post.likes.all %}
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z" stroke-width="0" fill="currentColor"></path>
+                              </svg>
+                            {% else %}
+                              <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-heart" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+                              </svg>
+                            
+                            {% endif %}
+                        </a>
+                        <p>
+                            {{ post.comments.count }}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-message" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M8 9h8"></path><path d="M8 13h6"></path>
+                                <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-5l-5 3v-3h-2a3 3 0 0 1-3-3v-8a3 3 0 0 1 3-3h12z"></path>
+                            </svg>
+                        </p>
+            
+                    
+                        <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-share-3" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10-6v4l8 -7l-8 -7z"></path>
+                        </svg>
+
+                    </div>               
+
+                </div>
+                <div class="post-footer">
+                    <form action="" method="post">
+                        <div> 
+                            {% csrf_token %}
+                            {{ form.comments }}
+                            <button class="btn btn-info"> Опубликовать </button>
+                        </div>
+                    </form>
+                    <ul class="comments-list">
+                        {% for comment in comments %}
+                            <li class="comment">
+                                <a class="pull-left" href="{% url 'profile' post.author.pk %}">
+                                  {% if post.author.avatar %}
+                                  <img src="{{post.author.avatar.url}}" class="avatar" alt="user profile image">
+                                    {% else %}
+                                      <img src="{% static 'dist/img/default_profile.png'%}" alt=""  class="avatar">
+                                    {% endif %}
+                                </a>
+                                <div class="comment-body">
+                                    <div class="comment-heading">
+                                        <h4 class="user"> 
+                                            <a href="{% url 'profile' post.author.pk %}">
+                                                <p>{{ post.author.username }}</p>
+                                            </a>
+                                        </h4>
+                                        <h5 class="time">{{comment.created_at|timesince}} назад</h5>
+                                    </div>
+                                    <p>{{comment.comments}}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </di>
+</div>
+
+
+
+
+               
+
+<style>
+                            
+.panel-shadow2 {
+    box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+}
+.panel-white3 {
+  border: 1px solid #dddddd;
+}
+.panel-white3  .panel-heading3 {
+  color: #333;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.panel-white3  .panel-footer {
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+.post .post-heading {
+  height: 95px;
+  padding: 20px 15px;
+}
+.post .post-heading .avatar {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin-right: 15px;
+}
+.post .post-heading .meta .title {
+  margin-bottom: 0;
+}
+.post .post-heading .meta .title a {
+  color: black;
+}
+.post .post-heading .meta .title a:hover {
+  color: #aaaaaa;
+}
+.post .post-heading .meta .time {
+  margin-top: 8px;
+  color: #999;
+}
+.post .post-image .image {
+  width: 100%;
+  height: auto;
+}
+.post .post-description {
+  padding: 15px;
+}
+.post .post-description p {
+  font-size: 14px;
+}
+.post .post-description .stats {
+  margin-top: 20px;
+}
+.post .post-description .stats .stat-item {
+  display: inline-block;
+  margin-right: 15px;
+}
+.post .post-description .stats .stat-item .icon {
+  margin-right: 8px;
+}
+.post .post-footer {
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+.post .post-footer .input-group-addon a {
+  color: #454545;
+}
+.post .post-footer .comments-list {
+  padding: 0;
+  margin-top: 20px;
+  list-style-type: none;
+}
+.post .post-footer .comments-list .comment {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+}
+.post .post-footer .comments-list .comment .avatar {
+  width: 35px;
+  height: 35px;
+}
+.post .post-footer .comments-list .comment .comment-heading {
+  display: block;
+  width: 100%;
+}
+.post .post-footer .comments-list .comment .comment-heading .user {
+  font-size: 14px;
+  font-weight: bold;
+  display: inline;
+  margin-top: 0;
+  margin-right: 10px;
+}
+.post .post-footer .comments-list .comment .comment-heading .time {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 0;
+  display: inline;
+}
+.post .post-footer .comments-list .comment .comment-body {
+  margin-left: 50px;
+}
+.post .post-footer .comments-list .comment > .comments-list {
+  margin-left: 50px;
+}                    
+</style>
+{% endblock %}
+

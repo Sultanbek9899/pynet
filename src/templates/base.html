@@ -56,8 +56,13 @@
     </style>
   </head>
   <body >
+	<style>
+		.page.new-color{
+            background-color: #f3f3f2;
+        } 
+	</style>
     <script src="./dist/js/demo-theme.min.js?1685973381"></script>
-    <div class="page">
+    <div class="page new-color">
 		 <header class="navbar navbar-expand-md d-print-none" >
 			<div class="container-xl">
 			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -184,7 +189,11 @@
 				{% if request.user.is_authenticated %}
 				<div class="nav-item dropdown">
 				  <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-					<span class="avatar avatar-sm" style="background-image: url({{request.user.image.url}})"></span>
+					{% if request.user.avatar %}
+					<span class="avatar avatar-sm" style="background-image: url({{request.user.avatar.url}})"></span>
+					{% else %}
+					<span class="avatar avatar-sm" style="background-image: url('/static/dist/img/default_profile.png')"></span>
+					{% endif %}
 					<div class="d-none d-xl-block ps-2">
 					  <div>{{ request.user.username }}</div>
 					  <div class="mt-1 small text-secondary">{{request.user.full_name }}</div>
