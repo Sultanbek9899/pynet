@@ -123,8 +123,6 @@ def register_user(request):
 def get_user_posts(request, pk):
     user = User.objects.get(id=pk)
     posts = Post.objects.filter(author=pk)
-    # latest_post = .objects.filter(author=pk).order_by('-created_at').all()
-
     context = {
         "user": user,
         "posts": posts,
