@@ -65,12 +65,10 @@
                     <div class="form-label">First name</div>
                     {{form.first_name}}
                   </div>    
-                  {%csrf_token%}              
                   <div class="col-md">
                     <div class="form-label">Last name</div>
                     {{form.last_name}}
                   </div>
-                  {%csrf_token%}
                   <div class="col-md"> 
                     <div class="form-label">Birthday</div>
                     {{form.birthday}}
@@ -79,17 +77,26 @@
                 <h3 class="card-title mt-4">Email</h3>
                 <div>
                   <div class="row g-2">
-                    {%csrf_token%}
                     <div class="col-auto">
                         {{form.email}}
                     </div>
-                    <div class="col-auto"><a href="#" class="btn">
-                        Change
-                      </a></div>
+                    <h3 class="card-title mt-4">Mobile Phone:</h3>
+                    <div>
+                      <div class="row g-2">
+                        <div class="col-auto"> 
+                            {{form.mobile}}   
+                    </div>
                   </div>
+                </div>    
+                <h3 class="card-title mt-4">Gender:</h3>
+                <div>
+                  <div class="row g-2">
+                    <div class="col-auto"> 
+                        {{form.gender}}   
                 </div>
+              </div>
+            </div>   
                 <h3 class="card-title mt-4">Private profile:</h3>
-                {%csrf_token%}
                 <div>
                   <label class="form-check form-switch form-switch-lg">
                     <input class="form-check-input" type="checkbox" >
