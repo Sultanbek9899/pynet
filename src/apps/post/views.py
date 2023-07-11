@@ -11,6 +11,7 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 
@@ -99,3 +100,24 @@ def like_comment(request, comment_id):
         comment.likes.remove(user)
     comment.save()
     return redirect('post_details')
+  
+  
+     
+@login_required
+def add_to_bookmarks(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    request.user.bookmarks.add(post)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def remove_from_bookmarks(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    request.user.bookmarks.remove(post)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def get_bookmarks(request):
+    bookmarks = request.user.bookmarks.all()
+    context = {'bookmarks': bookmarks}
+    return render(request, 'bookmarks.html', context)
+

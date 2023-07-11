@@ -11,7 +11,7 @@
             <div class="middle-column">
                 <div class="card">
                     <div class="card-header bg-transparent">
-                        <form class="form-inline" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+                        <form class="form-inline" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data" onkeydown="return event.key != 'Enter';">
                             {% csrf_token %}
                             <div class="input-group w-100 big-post">
                                 <p>{{ form.description }}
@@ -74,7 +74,6 @@
                         </div>
                     </div>
                     <div class="likes">
-                        
                         <a href="{% url 'like_post' post.id %}" class="btn btn-default stat-item">
                             {{post.likes.count}}
                             {% if user in post.likes.all %}
@@ -103,6 +102,27 @@
                                 <path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z"></path>
                             </svg>
                         </a>
+                  
+                        {% if post in request.user.bookmarks.all %}
+                            <a href="{% url 'remove_from_bookmarks' post_id=post.id %}">
+                                <!-- Код для минуса закладки -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="iconw rigth icon-tabler icon-tabler-bookmark-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12.427 17.256l-.427 -.256l-5 3v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v9"></path>
+                                    <path d="M16 19h6"></path>
+                                </svg>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'add_to_bookmarks' post_id=post.id %}">
+                                <!-- Код для плюса закладки -->
+                                     <svg xmlns="http://www.w3.org/2000/svg" class="iconw rigth icon-tabler icon-tabler-bookmark-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12.357 17.214l-.357 -.214l-5 3v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v6.5"></path>
+                                        <path d="M16 19h6"></path>
+                                        <path d="M19 16v6"></path>
+                                    </svg>
+                            </a>
+                        {% endif %}
                     
                     </div>
                 </div>
@@ -162,6 +182,9 @@
 </div>
 
     <style>
+        .rigth{
+            float: right;
+        }
         .btn-success {
             background-color: rgb(99, 195, 128);
         }
@@ -191,10 +214,9 @@
             padding-left: 40px;
             padding-right: 0px;
             padding-bottom: 20px;
+            width: 100%;
             margin-top: -29px;
             margin-right: 3px;
-            
-           
         }
         .starland{
             margin: 10px;
@@ -266,7 +288,6 @@
             width: 185px;
             margin-top:-44px;
         }
-        
         
 
     </style>
