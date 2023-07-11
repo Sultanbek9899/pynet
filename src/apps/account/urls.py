@@ -13,7 +13,7 @@ urlpatterns = [
   
     path("register/", views.register_user, name="register"),
     
-    path('profile/<int:pk>/', views.get_user_posts, name="profile" ),
+    path('profile/<int:pk>/', views.get_user_profile, name="profile" ),
     path('unfollow/<int:pk>/', views.unfollow, name='unfollow'),
     path('follow/<int:pk>/', views.follow, name='follow'),
 ]
