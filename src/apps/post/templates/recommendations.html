@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<body>
+    <ul>
+        {% for recommendation in recommendations %} 
+            <li>
+                <div class="card-body lipsyha">
+                    <div class="starland">        
+                        <div class="media">
+                            <div class="media-body">
+                                <div class="post-header">
+                                    {% if recommendation.author.avatar %}
+                                        <img src="{{ recommendation.author.avatar.url }}" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                    {% else %}
+                                        <img src="C:\Dastan\8_July\pynet\src\static\dist\img\default_profile.png" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                    {% endif %}
+                                    <div>
+                                        <a href="{% url 'profile' recommendation.author.pk %}">
+                                            <p>{{ recommendation.author.username }}</p>
+                                        </a>
+                                        <p>{{ recommendation.author.full_name }}</p>
+                                    </div>
+                                </div>
+                                <p class="text-justify new_size">{{ recommendation.description }}</p>
+                                {% if recommendation.image %}
+                                    <img src="{{ recommendation.image.url }}" alt="" class="img-fluid shadow-sm img-thumbnail">
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">{{ recommendation.created_at|timesince }} назад</small>
+                        </div>
+                    </div>
+                    <div class="likes">
+                        <a href="{% url 'like_post' recommendation.id %}" class="btn btn-default stat-item">
+                            {{ recommendation.likes.count }}
+                            {% if user in recommendation.likes.all %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z" stroke-width="0" fill="currentColor"></path>
+                                </svg>
+                            {% else %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-heart" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+                                </svg>
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'post_details' recommendation.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-message" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M8 9h8"></path>
+                                <path d="M8 13h6"></path>
+                                <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-5l-5 3v-3h-2a3 3 0 0 1-3-3v-8a3 3 0 0 1 3-3h12z"></path>
+                            </svg>
+                        </a>
+                        <a href="{% url 'post_details' recommendation.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="iconw icon-tabler icon-tabler-share-3" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+
+<style>
+    .btn-success {
+        background-color: rgb(99, 195, 128);
+    }
+
+    .right-column.sticky-top {
+        position: sticky;
+        top: 10px;
+    }
+    .container.my-style {
+        margin-top: 10px;
+        background-color: #f3f3f2;
+    } 
+
+    .card-body.lipsyha{
+        margin-bottom: 20px;
+        /* padding-bottom: 50px; */
+        background-color: #ffffff;
+        border-radius: 15px;
+    }
+    .likes{
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+    }
+    .starland{
+        margin: 5px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+   
+    .iconw {
+        width: 32px;
+        height: 32px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-right: 5px;
+    }
+    .text-justify.new_size{
+        font-size: 16px;
+    }
+    .post-header {
+        margin-bottom: 10px;
+        border-bottom: 0.5px solid #f3f3f2 ;
+    }
+    .post-header img{
+        display: inline-block;
+    }
+    .post-header div{
+        display: inline-block;
+        margin: auto 0px;
+    }
+    .post-header p{
+        margin: 0;
+        padding: 0;
+       
+    }
+    .form-control.form-control-md.big-post{
+            height: 45px;
+            
+    }
+    
+    
+
+</style>
+    
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var fileInput = document.getElementById('photo-upload');
+    var uploadBtn = document.getElementById('upload-btn');
+    var fileNameSpan = document.getElementById('file-name');
+
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files.length > 0) {
+        uploadBtn.classList.add('btn-success');
+        fileNameSpan.textContent = fileInput.files[0].name; 
+        } else {
+        uploadBtn.classList.remove('btn-success');
+        fileNameSpan.textContent = '';  
+        }
+    });
+    });
+</script>
+{% endblock %}

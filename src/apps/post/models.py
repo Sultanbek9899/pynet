@@ -13,9 +13,11 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
 
     
+
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
+    
 
     def __str__(self):
         return f"#{self.id}-{self.description[:50]}"
