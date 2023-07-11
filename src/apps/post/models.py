@@ -11,6 +11,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField("Время обновления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
+
     
 
     class Meta:
