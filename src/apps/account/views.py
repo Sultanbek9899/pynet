@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from .models import User
 from django.contrib import messages
 from django.views import View
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from src.apps.post.models import Post
 from src.apps.account.forms import LoginForm, UserRegisterForm
@@ -120,13 +121,13 @@ def register_user(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-
-
-def get_user_profile(request, pk):
+def get_user_posts(request, pk):
     user = User.objects.get(id=pk)
     posts = Post.objects.filter(author=pk)
+    # latest_post = .objects.filter(author=pk).order_by('-created_at').all()
+
     context = {
         "user": user,
-        "posts": posts
+        "posts": posts,
     }
-    return render(request,"profile.html", context)
+    return render(request, "profile.html", context)
