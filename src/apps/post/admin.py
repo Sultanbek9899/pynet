@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from src.apps.post.models import Post
+from src.apps.post.models import Post, Comment
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -27,3 +27,6 @@ class PostAdmin(admin.ModelAdmin):
         if obj.image:
             return f'<img src="{obj.image.url}" width="50" height="50" />'
     display_image.short_description = 'Изображение'
+
+
+    admin.site.register(Comment)
