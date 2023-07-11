@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
 
 <body>
     <ul>
-        {% for recommendation in recommendations %} 
+        {% for recommendation in posts %} 
             <li>
                 <div class="card-body lipsyha">
                     <div class="starland">        
@@ -14,7 +15,7 @@
                                     {% if recommendation.author.avatar %}
                                         <img src="{{ recommendation.author.avatar.url }}" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
                                     {% else %}
-                                        <img src="C:\Dastan\8_July\pynet\src\static\dist\img\default_profile.png" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                        <img src="{% static 'dist/img/default_profile.png' %}" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
                                     {% endif %}
                                     <div>
                                         <a href="{% url 'profile' recommendation.author.pk %}">
