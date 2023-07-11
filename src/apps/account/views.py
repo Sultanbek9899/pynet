@@ -10,7 +10,6 @@ from django.http import HttpResponse
 from .models import User
 from django.contrib import messages
 from django.views import View
-from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from src.apps.post.models import Post
 from src.apps.account.forms import LoginForm, UserRegisterForm
