@@ -3,7 +3,7 @@ from django.urls import path
 
 
 from src.apps.account import views
-from .views import UsersSearchListView
+from .views import UsersSearchListView, UserProfileView
 
 
 urlpatterns = [
@@ -19,6 +19,7 @@ urlpatterns = [
     path('follow/<int:pk>/', views.follow, name='follow'),
     
 
-    path('edit/profile/', views.UserUpdateProfile.as_view(), name="edit_profile")
+    path('edit/profile/', views.UserUpdateProfile.as_view(), name="edit_profile"), 
+    path('profile/<int:pk>/', UserProfileView.as_view(), name="profile")
 ]
 

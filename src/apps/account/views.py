@@ -3,7 +3,7 @@ from django.db import models
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView
+from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView, DetailView
 from django.contrib.auth import authenticate, login, logout
 # from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -138,3 +138,9 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+    
+
+class UserProfileView(LoginRequiredMixin, DetailView):
+    template_name = "profile.html"
+    model = User
+    queryset = User.objects.all()
