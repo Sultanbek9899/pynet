@@ -20,6 +20,5 @@ urlpatterns = [
     
 
     path('edit/profile/', views.UserUpdateProfile.as_view(), name="edit_profile"), 
-    path('profile/<int:pk>/', UserProfileView.as_view(), name="profile")
 ]
 
