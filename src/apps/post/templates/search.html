@@ -54,6 +54,7 @@
                         <div class="results">
                             <a href="/account/profile/{{ user.id }}/">{{ user.username }}</a> 
                             <p class="user">{{ user.first_name }} {{ user.last_name }}</p>
+                            <p>{{user.followers.count}} подписчиков</p>
                         </div>
                     {% endfor %}
                         
