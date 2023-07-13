@@ -40,15 +40,6 @@ class IndexView(LoginRequiredMixin,FormMixin, ListView):
             Q(author__in=following) | Q(author=user)
             ).order_by('-created_at')
         return posts
-
-def search(request):
-    form = SearchForm(request.GET)
-    results = []
-    if form.is_valid() and form.is_bound:
-        query = form.cleaned_data.get('query')
-        if query: 
-            results = User.objects.filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
-    return render(request, 'search.html', {'form': form, 'results': results})
     
     
 

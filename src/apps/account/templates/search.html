@@ -33,7 +33,10 @@
         justify-content: center;
         flex-direction: column;
         align-items: center;
-}
+    }
+    .user{
+        display: inline;
+    }
 </style>
     <div class="wrapper">
         <div class="container">          
@@ -52,9 +55,9 @@
                     <h4>Результаты поиска:</h4>
                     {% for user in results %}
                         <div class="results">
-                            <a href="/account/profile/{{ user.id }}/">{{ user.username }}</a> 
-                            <p class="user">{{ user.first_name }} {{ user.last_name }}</p>
-                            <p>{{user.followers.count}} подписчиков</p>
+                            <a href="/account/profile/{{ user.id }}/">{{ user.username }} </a> 
+                            <p class="user">| {{ user.first_name }} {{ user.last_name }}</p>
+                            <p class="followers">Подписчиков: {{user.followers.count}}</p>
                         </div>
                     {% endfor %}
                         

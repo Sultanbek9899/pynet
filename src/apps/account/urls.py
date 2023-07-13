@@ -18,6 +18,7 @@ urlpatterns = [
   
     path('unfollow/<int:pk>/', views.unfollow, name='unfollow'),
     path('follow/<int:pk>/', views.follow, name='follow'),
+    path("search/", views.search, name="search"),
     
 ]
 

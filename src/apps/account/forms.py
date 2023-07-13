@@ -76,3 +76,5 @@ class UserUpdateForm(forms.ModelForm):
             ),
         }
 
+class SearchForm(forms.Form):
+    query = forms.CharField(label="", max_length=255, required=False, widget=forms.TextInput(attrs={"class":"input",'placeholder': 'Поиск'}))
