@@ -1,3 +1,4 @@
+from src.apps.account.models import User
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
@@ -6,6 +7,9 @@ from .forms import CommentForm
 import datetime
 from django.utils import timezone
 from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+
+
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
@@ -36,6 +40,16 @@ class IndexView(LoginRequiredMixin,FormMixin, ListView):
             Q(author__in=following) | Q(author=user)
             ).order_by('-created_at')
         return posts
+
+def search(request):
+    form = SearchForm(request.GET)
+    results = []
+    if form.is_valid() and form.is_bound:
+        query = form.cleaned_data.get('query')
+        if query: 
+            results = User.objects.filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+    return render(request, 'search.html', {'form': form, 'results': results})
+    
     
 
 @login_required

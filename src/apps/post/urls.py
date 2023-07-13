@@ -12,4 +12,6 @@ urlpatterns = [
     path('add_to_bookmarks/<int:post_id>/', views.add_to_bookmarks, name='add_to_bookmarks'),
     path('remove_from_bookmarks/<int:post_id>/', views.remove_from_bookmarks, name='remove_from_bookmarks'),
     path('recommendations/', views.recommendations_view, name='recommendations'),
+    path("add_post/", views.add_post, name="add_post"),
+    path("search/", views.search, name="search"),
 ]
