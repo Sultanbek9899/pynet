@@ -1,10 +1,10 @@
 from typing import Any, Optional
 from django.db import models
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 # from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from src.apps.post.models import Post
 from src.apps.account.forms import LoginForm, UserRegisterForm, UserUpdateForm
 # Create your views here.
+from django.http import HttpResponse
 from src.apps.account.models import User
 
 
@@ -58,11 +59,6 @@ class UsersSearchListView(ListView):
         context=super().get_context_data(**kwargs)
         context['search_text'] = self.request.Get.get('query')
         return context
-
-
-
-
-
 
 
 
@@ -121,11 +117,17 @@ def register_user(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-
-
+  
+  
 def get_user_profile(request, pk):
     user = User.objects.get(id=pk)
-    return render(request,"profile.html", {"user":user})
+    posts = Post.objects.filter(author=pk)
+    context = {
+        "user": user,
+        "posts": posts,
+    }
+    return render(request, "profile.html", context)
+
 
 
 class UserUpdateProfile(LoginRequiredMixin, UpdateView):
@@ -138,3 +140,7 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+
+

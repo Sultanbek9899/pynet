@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 from src.apps.account.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 
 class LoginForm(forms.Form):
     username = forms.CharField(
