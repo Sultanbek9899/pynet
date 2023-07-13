@@ -31,6 +31,7 @@ class User(AbstractUser):
     is_private = models.BooleanField("Закрытый аккаунт", default=True)
     last_login = models.DateTimeField("Последнее посещение", null=True, blank=True)
     bookmarks = models.ManyToManyField("post.Post")
+    
 
 
     class Meta:

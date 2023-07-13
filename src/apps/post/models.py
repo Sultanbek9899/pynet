@@ -11,6 +11,8 @@ class Post(models.Model):
     updated_at = models.DateTimeField("Время обновления", auto_now=True)
     is_archived = models.BooleanField("Архивирован", default=False)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
+    repost_set = models.ManyToManyField(User, through='Repost', related_name='reposted_posts')
+
 
     
 
@@ -37,4 +39,15 @@ class Comment(models.Model):
     def __str__(self):
         return self.comments
        
+
+
+class Repost(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    reposted_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='reposts')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Репост"
+        verbose_name_plural = "Репосты"
 
