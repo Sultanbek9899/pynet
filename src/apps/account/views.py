@@ -1,6 +1,8 @@
 from typing import Any, Optional
 from django.db import models
 from django.shortcuts import render, redirect
+from .forms import *
+
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView
@@ -17,6 +19,7 @@ from src.apps.account.forms import LoginForm, UserRegisterForm, UserUpdateForm
 # Create your views here.
 from django.http import HttpResponse
 from src.apps.account.models import User
+from django.db.models import Q
 
 
 class LoginView(FormView):
@@ -142,6 +145,14 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
+def search(request):
+    form = SearchForm(request.GET)
+    results = []
+    if form.is_valid() and form.is_bound:
+        query = form.cleaned_data.get('query')
+        if query: 
+            results = User.objects.filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+    return render(request, 'search.html', {'form': form, 'results': results})
  
 
 def change_password(request):

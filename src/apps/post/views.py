@@ -1,3 +1,4 @@
+from src.apps.account.models import User
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
@@ -6,6 +7,9 @@ from .forms import CommentForm
 import datetime
 from django.utils import timezone
 from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+
+
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
@@ -33,6 +37,7 @@ class IndexView(LoginRequiredMixin,FormMixin, ListView):
             Q(author__in=following) | Q(author=user)
             ).order_by('-created_at')
         return posts
+    
     
 
 @login_required
