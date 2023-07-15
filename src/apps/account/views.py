@@ -142,5 +142,22 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
+ 
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        previous_url = request.META.get('HTTP_REFERER')
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, request.user)
+            messages.success(request, 'Ваш пароль успешно изменен!')
+            return redirect(previous_url)
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
+
 
 
