@@ -124,7 +124,7 @@ def register_user(request):
 
 
 def get_user_profile(request, pk):
-    user = User.objects.get(id=pk)
+    user = User.objects.get(pk=pk)
     return render(request,"profile.html", {"user":user})
 
 
@@ -139,8 +139,4 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
     def get_object(self):
         return self.request.user
     
-
-class UserProfileView(LoginRequiredMixin, DetailView):
-    template_name = "profile.html"
-    model = User
-    queryset = User.objects.all()
+ 

@@ -34,13 +34,15 @@
                     <p class="mb-0">{{user.followings.count}}</p>
                   </div>
                 </div>
-            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                {% if request.user == user%}
             <div class="d-flex justify-content-center mb-2">
+              {% else %}
               {% if request.user in user.followers.all %}
               <a href="{% url 'unfollow' user.id %}" class="btn btn-danger">Отписаться</a>
               {% else %}
               <a href="{% url 'follow' user.id %}" class="btn btn-success">Подписаться</a>
               {%endif%}
+            {% endif %}
               <button type="button" class="btn btn-outline-primary ms-1">Message</button>
             </div>
           </div>

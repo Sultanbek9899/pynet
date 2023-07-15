@@ -3,7 +3,7 @@ from django.urls import path
 
 
 from src.apps.account import views
-from .views import UsersSearchListView, UserProfileView
+from .views import UsersSearchListView
 
 
 urlpatterns = [
