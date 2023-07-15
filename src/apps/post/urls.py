@@ -15,4 +15,5 @@ urlpatterns = [
     path("add_post/", views.add_post, name="add_post"),
     
     
+    path('repost/<int:post_id>/', views.repost_post, name='repost_post'),
 ]

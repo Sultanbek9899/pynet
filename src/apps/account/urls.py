@@ -20,5 +20,6 @@ urlpatterns = [
     path('follow/<int:pk>/', views.follow, name='follow'),
     path("search/", views.search, name="search"),
     
+    path('change_password/', views.change_password, name='change_password'),
 ]
 

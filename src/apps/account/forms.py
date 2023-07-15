@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 from src.apps.account.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -75,6 +76,22 @@ class UserUpdateForm(forms.ModelForm):
                 }
             ),
         }
+# class ChangePasswordForm(forms.Form):
+#     old_password = forms.CharField(widget=forms.PasswordInput)
+#     new_password1 = forms.CharField(widget=forms.PasswordInput)
+#     new_password2 = forms.CharField(widget=forms.PasswordInput)
+
+# class CustomPasswordChangeForm(PasswordChangeForm):
+#     password = forms.CharField(
+#         label='Старый пароль',
+#         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+#     )
+
+#     class Meta:
+#         model = User
+#         fields = ['password', 'new_password1', 'new_password2']
+
+
 
 class SearchForm(forms.Form):
     query = forms.CharField(label="", max_length=255, required=False, widget=forms.TextInput(attrs={"class":"input",'placeholder': 'Поиск'}))

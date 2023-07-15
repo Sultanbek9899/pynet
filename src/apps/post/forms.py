@@ -20,5 +20,13 @@ class CommentForm(forms.ModelForm):
             'comments': forms.TextInput(attrs={'class': 'form-control form-control-md', 'id': 'message', 'placeholder': 'Enter Comment'})
         }
 
+class RepostForm(forms.Form):
+    pass
+#     # model=Repost
+#     # fields=['repost_post']    
+#     # widgets = {
+#     #     'repost': forms.TextInput(attrs={'class': 'form-control'}),
+    
+#     # }
       
         

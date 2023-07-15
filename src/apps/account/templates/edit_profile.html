@@ -95,9 +95,17 @@
                   <div class="row g-2">
                     <div class="col-auto"> 
                         {{form.gender}}   
-                </div>
+                    </div>
+                  </div>
+                </div> 
+                <div> 
+                  <div class="row g-2">
+                    <div class="col-md">
+                      <a href="{% url 'change_password' %}" class="btn btn-primary">Изменить пароль</a>
+                    </div>
+                  </div>
               </div>
-            </div>   
+                   
                 <h3 class="card-title mt-4">Private profile:</h3>
 
                 <div>
@@ -164,4 +172,9 @@
     </footer>
   </div>
 
+  <style>
+    img {
+    max-width: 20%;
+}
+  </style>
 {% endblock %}
