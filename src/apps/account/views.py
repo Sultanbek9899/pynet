@@ -144,8 +144,6 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
 
  
 
-
-
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)

@@ -81,15 +81,15 @@ class UserUpdateForm(forms.ModelForm):
 #     new_password1 = forms.CharField(widget=forms.PasswordInput)
 #     new_password2 = forms.CharField(widget=forms.PasswordInput)
 
-class CustomPasswordChangeForm(PasswordChangeForm):
-    password = forms.CharField(
-        label='Старый пароль',
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-    )
+# class CustomPasswordChangeForm(PasswordChangeForm):
+#     password = forms.CharField(
+#         label='Старый пароль',
+#         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+#     )
 
-    class Meta:
-        model = User
-        fields = ['password', 'new_password1', 'new_password2']
+#     class Meta:
+#         model = User
+#         fields = ['password', 'new_password1', 'new_password2']
 
 
 
