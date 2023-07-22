@@ -1,0 +1,22 @@
+<!-- hashtag.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты поиска</title>
+</head>
+<body>
+    <h1>Результаты поиска по хештегу</h1>
+    <form method="post" action="{% url 'post_search' %}">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Поиск</button>
+    </form>
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.description }}</li>
+        {% empty %}
+            <li>Ничего не найдено.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html> 

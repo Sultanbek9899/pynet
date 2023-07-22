@@ -9,7 +9,8 @@ from django.utils import timezone
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 
-
+from django.db.models import Case, When, Value, IntegerField
+import re
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
@@ -48,11 +49,22 @@ def add_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('index')
-    else: 
-        redirect("index")
-        
+            hashtags_str = form.cleaned_data['hashtags']
+            hashtags = re.findall(r'#\w+', hashtags_str)
+            for tag in hashtags:
+                tag_name = tag[1:]  
+                hashtag, created = Hashtag.objects.get_or_create(name=tag_name)
+                post.hashtags.add(hashtag)
 
+            return redirect('index')
+    else:
+        form = AddPostForm()
+    
+    context = {'form': form}
+    return render(request, 'add_post.html', context)
+
+        
+ 
 @login_required
 def post_details(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -121,20 +133,29 @@ def get_bookmarks(request):
     bookmarks = request.user.bookmarks.all()
     context = {'bookmarks': bookmarks}
     return render(request, 'bookmarks.html', context)
-
-
   
+from django.db.models import Func, FloatField
 
 def calculate_rating(post):
     rating = post.comments.count() + ( post.author.followers.count() * 2 ) + (post.likes.count() * 3)
     return rating
 
-  
+class CalculateRating(Func):
+    function = calculate_rating
+    output_field = FloatField()
+
 def recommendations_view(request):
-    posts = Post.objects.all()
-    sorted_posts = sorted(posts, key=calculate_rating, reverse=True)
+    search_hashtag = request.GET.get('search_hashtag', None)
+    print(Hashtag.objects.all())
+    try:
+        hashtag = Hashtag.objects.get(name=search_hashtag)
+        posts = hashtag.posts.all()
+    except Hashtag.DoesNotExist:
+        posts = Post.objects.all()
+    sorted_posts = sorted(posts, key=lambda post: calculate_rating(post), reverse=True)
+
     context = {
-        'posts': sorted_posts
+        'posts': sorted_posts,
     }
     return render(request, 'recommendations.html', context)
 

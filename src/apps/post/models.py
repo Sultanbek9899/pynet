@@ -3,6 +3,16 @@ from django.utils import timezone
 from src.apps.account.models import User
 from django.contrib.auth import get_user_model
 
+class Hashtag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'custom_hashtag_table'
+        ordering = ['name']
+        
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     description = models.TextField("Пост")
@@ -12,7 +22,7 @@ class Post(models.Model):
     is_archived = models.BooleanField("Архивирован", default=False)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
     repost_set = models.ManyToManyField(User, through='Repost', related_name='reposted_posts')
-
+    hashtags = models.ManyToManyField(Hashtag, related_name='posts')
 
     
 

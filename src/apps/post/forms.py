@@ -4,6 +4,7 @@ from .models import *
 
 
 class AddPostForm(forms.ModelForm):
+    hashtags = forms.CharField(label='Хештеги', required=False)
     class Meta:
         model = Post
         fields = ['description', 'image']
@@ -29,4 +30,5 @@ class RepostForm(forms.Form):
     
 #     # }
       
-        
+class PostSearchForm(forms.Form):
+    search_hashtag = forms.CharField(label='Поиск по хештегу', max_length=100)
