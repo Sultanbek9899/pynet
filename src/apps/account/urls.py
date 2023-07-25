@@ -20,6 +20,7 @@ urlpatterns = [
     path('follow/<int:pk>/', views.follow, name='follow'),
     path("search/", views.search, name="search"),
     
+    path('edit/profile/', views.UserUpdateProfile.as_view(), name="edit_profile"), 
     path('change_password/', views.change_password, name='change_password'),
 ]
 
