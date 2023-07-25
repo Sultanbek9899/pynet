@@ -69,56 +69,79 @@
 </body>
 
 <style>
+    .hashtag-link {
+        color: black;
+    }
+    .rigth{
+        float: right;
+    }
     .btn-success {
         background-color: rgb(99, 195, 128);
     }
-
+    .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: calc(var(--tblr-border-width) * -7);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    }
+    
     .right-column.sticky-top {
         position: sticky;
         top: 10px;
     }
     .container.my-style {
-        margin-top: 10px;
+        margin-top: 20px;
         background-color: #f3f3f2;
     } 
 
     .card-body.lipsyha{
         margin-bottom: 20px;
-        /* padding-bottom: 50px; */
         background-color: #ffffff;
-        border-radius: 15px;
+        border-radius: 10px;
+        margin-top:-10px;
+
     }
     .likes{
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 40px;
+        padding-right: 0px;
         padding-bottom: 20px;
+        width: 100%;
+        margin-top: -29px;
+        margin-right: 3px;
     }
     .starland{
-        margin: 5px;
-        padding: 10px;
-        border-radius: 10px;
+        margin: 10px;
+        padding: 30px;
+        border-radius: 20px;
+        margin-top: 10px;
+
     }
    
     .iconw {
-        width: 32px;
-        height: 32px;
+        
+        width: 24x;
+        height: 24px;
         background-repeat: no-repeat;
         background-size: cover;
-        margin-right: 5px;
+        margin-right: -3px;
+        
     }
     .text-justify.new_size{
         font-size: 16px;
+        margin-top: 20px;
+        margin-left: 3px;
     }
     .post-header {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         border-bottom: 0.5px solid #f3f3f2 ;
+        margin-right:5px;
     }
     .post-header img{
         display: inline-block;
+        margin-right: 10px;
     }
     .post-header div{
         display: inline-block;
-        margin: auto 0px;
+        margin: -5px;
     }
     .post-header p{
         margin: 0;
@@ -129,27 +152,65 @@
             height: 45px;
             
     }
+    .input-group-text{
+        margin-left:10px;
+    }
+
+    img.rounded-circle{
+        border-radius: 5px;
+    }
+    .btn-primary {
+        --tblr-btn-border-color: transparent;
+        --tblr-btn-hover-border-color: transparent;
+        --tblr-btn-active-border-color: transparent;
+        --tblr-btn-color: var(--tblr-primary-fg);
+        --tblr-btn-bg: var(--tblr-primary);
+        --tblr-btn-hover-color: var(--tblr-primary-fg);
+        --tblr-btn-hover-bg: rgba(var(--tblr-primary-rgb), .10);
+        --tblr-btn-active-color: var(--tblr-primary-fg);
+        --tblr-btn-active-bg: rgba(var(--tblr-primary-rgb), .10);
+        --tblr-btn-disabled-bg: var(--tblr-primary);
+        --tblr-btn-disabled-color: var(--tblr-primary-fg);
+        --tblr-btn-box-shadow: var(--tblr-box-shadow-input);
+        margin-top: -30px;
+        /* padding: 10px; */
+        height: 35px;
+        width: 185px;
+        margin-top:-44px;
+    }
     
-    
+
 
 </style>
     
 <script>
+    function processHashtags(postDescriptionElement) {
+        const postDescription = postDescriptionElement.innerHTML;
+        const pattern = /#[^\s#]+/g; 
+        const processedValue = postDescription.replace(pattern, (match) => {
+            const tag = match.slice(1); 
+            return `<a class="hashtag-link" href="/recommendations/${tag}/">#${tag}</a>`;
+        });
+        postDescriptionElement.innerHTML = processedValue;
+    }
 
-    document.addEventListener('DOMContentLoaded', function() {
-    var fileInput = document.getElementById('photo-upload');
-    var uploadBtn = document.getElementById('upload-btn');
-    var fileNameSpan = document.getElementById('file-name');
+    const postDescriptionElements = document.querySelectorAll('.text-justify.new_size');
+    postDescriptionElements.forEach(processHashtags);
 
-    fileInput.addEventListener('change', function() {
-        if (fileInput.files.length > 0) {
-        uploadBtn.classList.add('btn-success');
-        fileNameSpan.textContent = fileInput.files[0].name; 
-        } else {
-        uploadBtn.classList.remove('btn-success');
-        fileNameSpan.textContent = '';  
-        }
-    });
+        document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.getElementById('photo-upload');
+        var uploadBtn = document.getElementById('upload-btn');
+        var fileNameSpan = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                uploadBtn.classList.add('btn-success');
+                fileNameSpan.textContent = fileInput.files[0].name;
+            } else {
+                uploadBtn.classList.remove('btn-success');
+                fileNameSpan.textContent = '';
+            }
+        });
     });
 </script>
 {% endblock %}
