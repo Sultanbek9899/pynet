@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 
-
+import re
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
@@ -38,7 +38,9 @@ class IndexView(LoginRequiredMixin,FormMixin, ListView):
             ).order_by('-created_at')
         return posts
     
-    
+
+def extract_hashtags(description):
+    return set(tag[1:] for tag in re.findall(r'#\w+', description))
 
 @login_required
 def add_post(request):
@@ -48,9 +50,19 @@ def add_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
+            hashtags_str = form.cleaned_data['description']
+            hashtags = set(tag[1:] for tag in re.findall(r'#\w+', hashtags_str))
+            post.save()
+            for tag_name in hashtags:
+                hashtag, _ = Hashtag.objects.get_or_create(name=tag_name)
+                post.hashtags.add(hashtag)
             return redirect('index')
-    else: 
-        redirect("index")
+    else:
+        form = AddPostForm()
+
+    context = {'form': form}
+    return render(request, 'index.html', context)
+
         
 
 @login_required
@@ -130,14 +142,18 @@ def calculate_rating(post):
     return rating
 
   
-def recommendations_view(request):
-    posts = Post.objects.all()
+def recommendations_view(request, hashtag = None):
+    if hashtag:
+        hashtag_obj = Hashtag.objects.get(name=hashtag)
+        posts = Post.objects.filter(hashtags=hashtag_obj)
+    else :
+        posts = Post.objects.all()
+
     sorted_posts = sorted(posts, key=calculate_rating, reverse=True)
     context = {
         'posts': sorted_posts
     }
     return render(request, 'recommendations.html', context)
-
 
 
 @login_required(login_url='login')

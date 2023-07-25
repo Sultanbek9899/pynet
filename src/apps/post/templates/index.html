@@ -44,35 +44,29 @@
                 <div class="card-body lipsyha">
                     <div class="starland">        
                         <div class="media">
-                        
-                        <div class="media-body">
-                            <div class="post-header">
-                                
-                                {% if post.author.avatar %}
-                                <img src="{{post.author.avatar.url  }}"  alt="img" width="55px" height="55px" class="rounded-circle mr-3">
-                                {% else %}
-                                <img src="{% static 'dist/img/default_profile.png' %}" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
-                                {%endif %}
-                                <div>
-                                    <a href="{% url 'profile' post.author.pk %}">
-                                        <p>{{ post.author.username }}</p>
-                                    </a>
-                                    <p>
-                                        {{ post.author.full_name }}
-                                    </p>
+                            <div class="media-body">
+                                <div class="post-header">
+                                    {% if post.author.avatar %}
+                                        <img src="{{ post.author.avatar.url }}" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                    {% else %}
+                                        <img src="{% static 'dist/img/default_profile.png' %}" alt="img" width="55px" height="55px" class="rounded-circle mr-3">
+                                    {% endif %}
+                                    <div>
+                                        <a href="{% url 'profile' post.author.pk %}">
+                                            <p>{{ post.author.username }}</p>
+                                        </a>
+                                        <p>{{ post.author.full_name }}</p>
+                                    </div>
                                 </div>
+                                <p class="text-justify new_size">{{ post.description }}</p>
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="" class="img-fluid shadow-sm img-thumbnail" width="300" height="300">   
+                                {% endif %}
                             </div>
-                            <p class="text-justify new_size">{{post.description }}</p>
-                            {% if post.image %}
-                                <!-- <a href="img/mid5.jpg" data-lightbox="id"> -->
-                                    <img src="{{post.image.url }}" alt="" class="img-fluid shadow-sm img-thumbnail" width="300" height="300">   
-                                <!-- </a> -->
-                            
-                            {% endif %}
-                        </div>
-                        <small class="text-muted">{{post.created_at|timesince}} назад</small>
+                            <small class="text-muted">{{ post.created_at|timesince }} назад</small>
                         </div>
                     </div>
+                </div>
                     <div class="likes">
                         <a href="{% url 'like_post' post.id %}" class="btn btn-default stat-item">
                             {{post.likes.count}}
@@ -189,6 +183,9 @@
 </div>
 
     <style>
+        .hashtag-link {
+            color: black;
+        }
         .rigth{
             float: right;
         }
@@ -300,21 +297,33 @@
     </style>
         
     <script>
-
+        function processHashtags(postDescriptionElement) {
+            const postDescription = postDescriptionElement.innerHTML;
+            const pattern = /#[^\s#]+/g; 
+            const processedValue = postDescription.replace(pattern, (match) => {
+                const tag = match.slice(1); 
+                return `<a class="hashtag-link" href="/recommendations/${tag}/">#${tag}</a>`;
+            });
+            postDescriptionElement.innerHTML = processedValue;
+        }
+    
+        const postDescriptionElements = document.querySelectorAll('.text-justify.new_size');
+        postDescriptionElements.forEach(processHashtags);
+    
         document.addEventListener('DOMContentLoaded', function() {
-        var fileInput = document.getElementById('photo-upload');
-        var uploadBtn = document.getElementById('upload-btn');
-        var fileNameSpan = document.getElementById('file-name');
-
-        fileInput.addEventListener('change', function() {
-            if (fileInput.files.length > 0) {
-            uploadBtn.classList.add('btn-success');
-            fileNameSpan.textContent = fileInput.files[0].name; 
-            } else {
-            uploadBtn.classList.remove('btn-success');
-            fileNameSpan.textContent = '';  
-            }
-        });
+            var fileInput = document.getElementById('photo-upload');
+            var uploadBtn = document.getElementById('upload-btn');
+            var fileNameSpan = document.getElementById('file-name');
+    
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    uploadBtn.classList.add('btn-success');
+                    fileNameSpan.textContent = fileInput.files[0].name;
+                } else {
+                    uploadBtn.classList.remove('btn-success');
+                    fileNameSpan.textContent = '';
+                }
+            });
         });
     </script>
     
