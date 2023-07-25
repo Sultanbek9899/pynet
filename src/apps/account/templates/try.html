@@ -1,0 +1,94 @@
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              {% if user.avatar %}
+              <img src="{{user.avatar.url}}" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              {% else %}
+                <img src="/static/dist/img/default_profile.png" alt="" class="rounded-circle img-fluid" style="width: 150px;">
+              {%endif%}
+              <h5 class="my-3">{{user.full_name}}</h5>
+              <p class="text-muted mb-1">{{user.username}}</p>
+              <div class="d-flex justify-content-center rounded-3 p-2 mb-2"
+                    style="background-color: #efefef;">
+                    <div>
+                      <p class="small text mb-1">Публикации</p>
+                      <p class="mb-0">{{user.posts.count}}</p>
+                    </div>
+                    <div class="px-3">
+                      <p class="small text mb-1">Подписчики</p>
+                      <p class="mb-0">{{user.followers.count}}</p>
+                    </div>
+                    <div>
+                      <p class="small text mb-1">Подписки</p>
+                      <p class="mb-0">{{user.followings.count}}</p>
+                    </div>
+                  </div>
+                  {% if request.user == user%}
+              <div class="d-flex justify-content-center mb-2">
+                {% else %}
+                {% if request.user in user.followers.all %}
+                <a href="{% url 'unfollow' user.id %}" class="btn btn-danger">Отписаться</a>
+                {% else %}
+                <a href="{% url 'follow' user.id %}" class="btn btn-success">Подписаться</a>
+                {%endif%}
+              {% endif %}
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.email}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.mobile}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Birthday</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.birthday}}</p>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+          <!-- Блок для постов -->
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card-body">
+                <div class="row row-cols-3">
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  {% endblock %}
