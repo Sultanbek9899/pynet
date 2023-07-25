@@ -1,8 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from src.apps.post.models import Post, Comment
-
+from src.apps.post.models import Post, Comment,Repost
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = [
@@ -30,3 +29,4 @@ class PostAdmin(admin.ModelAdmin):
 
 
     admin.site.register(Comment)
+    admin.site.register(Repost)

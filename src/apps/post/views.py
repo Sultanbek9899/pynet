@@ -1,20 +1,21 @@
+from src.apps.account.models import User
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Repost
 from .forms import CommentForm
 import datetime
 from django.utils import timezone
 from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+
+
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
-
-# Create your views here.
-
+from django.http import HttpResponse, JsonResponse
 from .forms import *
 
 class IndexView(LoginRequiredMixin,FormMixin, ListView):
@@ -36,6 +37,7 @@ class IndexView(LoginRequiredMixin,FormMixin, ListView):
             Q(author__in=following) | Q(author=user)
             ).order_by('-created_at')
         return posts
+    
     
 
 @login_required
@@ -135,3 +137,23 @@ def recommendations_view(request):
         'posts': sorted_posts
     }
     return render(request, 'recommendations.html', context)
+
+
+
+@login_required(login_url='login')
+def repost_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if post.author == request.user:
+        return HttpResponse('Вы не можете поделиться своим постом')
+    if Repost.objects.filter(user=request.user, reposted_post=post).exists():
+        return HttpResponse('Вы уже сделали репост этого поста')
+    repost = Repost(user=request.user, reposted_post=post)
+    repost.save()
+    request.user.posts.add(post)
+    request.user.save()
+    return redirect('index')
+
+
+
+   
+

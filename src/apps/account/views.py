@@ -1,10 +1,14 @@
 from typing import Any, Optional
 from django.db import models
 from django.shortcuts import render, redirect
+from .forms import *
 
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView, DetailView
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 # from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -15,7 +19,9 @@ from django.contrib.auth.decorators import login_required
 from src.apps.post.models import Post
 from src.apps.account.forms import LoginForm, UserRegisterForm, UserUpdateForm
 # Create your views here.
+from django.http import HttpResponse
 from src.apps.account.models import User
+from django.db.models import Q
 
 
 class LoginView(FormView):
@@ -58,11 +64,6 @@ class UsersSearchListView(ListView):
         context=super().get_context_data(**kwargs)
         context['search_text'] = self.request.Get.get('query')
         return context
-
-
-
-
-
 
 
 
@@ -121,11 +122,17 @@ def register_user(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-
-
+  
+  
 def get_user_profile(request, pk):
-    user = User.objects.get(pk=pk)
-    return render(request,"profile.html", {"user":user})
+    user = User.objects.get(id=pk)
+    posts = Post.objects.filter(author=pk)
+    context = {
+        "user": user,
+        "posts": posts,
+    }
+    return render(request, "profile.html", context)
+
 
 
 class UserUpdateProfile(LoginRequiredMixin, UpdateView):
@@ -138,5 +145,30 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
-    
+
+
+
+def search(request):
+    form = SearchForm(request.GET)
+    results = []
+    if form.is_valid() and form.is_bound:
+        query = form.cleaned_data.get('query')
+        if query: 
+            results = User.objects.filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+    return render(request, 'search.html', {'form': form, 'results': results})
  
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        previous_url = request.META.get('HTTP_REFERER')
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, request.user)
+            messages.success(request, 'Ваш пароль успешно изменен!')
+            return redirect(previous_url)
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
