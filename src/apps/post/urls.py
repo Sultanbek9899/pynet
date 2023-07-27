@@ -14,6 +14,6 @@ urlpatterns = [
     path('recommendations/', views.recommendations_view, name='recommendations'),
     path("add_post/", views.add_post, name="add_post"),
     
-    
+    path('recommendations/<str:hashtag>/', views.recommendations_view, name='recommendations'),
     path('repost/<int:post_id>/', views.repost_post, name='repost_post'),
 ]
