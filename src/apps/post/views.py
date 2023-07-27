@@ -149,6 +149,58 @@ def repost_post(request, post_id):
     return redirect('index')
 
 
+def post_get(self, request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if post.author == request.user:
+        form = self.form_class(instance=post)
+        context = {
+            "form": form
+        }
+        return render(request, self.template_class, context)
+    return HttpResponse("Not allowed")
+
+
+def post(self, request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    form = self.form_class(data=request.POST, instance=post)
+    if form.is_valid():
+        form.save()
+        return redirect("update_post", pk=pk)
+    return HttpResponse("Invalid Form!")    
+
+
+
+def update_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    form = UpdatePostForm(instance=post)
+    if request.method == "POST":
+        print(request.POST)
+        form = UpdatePostForm(data=request.POST, instance=post)
+        if form.is_valid():
+            post: Post = form.save(commit=False)
+            post.image = form.cleaned_data["image"]
+            post.save()
+            print(post.__dict__)
+            return redirect("post_details", pk=post.pk)
+        return render(request, "post_update_by_func.html", context={"form": form, "error": "Invalid Data!"})
+    return render(request, "post_update_by_func.html", context={"form": form})
 
    
+
+
+def archive(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if not post.is_archived:
+        post.is_archived = True
+        post.save()
+
+
+
+def diar_archive(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if post.is_archived:
+        post.is_archived = False
+        post.save()
+        return redirect('update_post')
+
 

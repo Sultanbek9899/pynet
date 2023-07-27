@@ -1,8 +1,7 @@
 from django import forms 
 from src.apps.account.models import User
 from .models import *
-
-
+from django.views import View
 class AddPostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -29,4 +28,18 @@ class RepostForm(forms.Form):
     
 #     # }
       
-        
+      
+class UpdatePostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = [
+            "description",
+            "image",
+        ]
+
+class UView(View):
+    model = Post
+    template_class = "post_update.html"
+    form_class = UpdatePostForm
+
+     

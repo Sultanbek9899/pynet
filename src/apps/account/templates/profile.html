@@ -83,13 +83,26 @@
                         <div class="media">
                         
                         <div class="media-body">
-                            <div class="post-header">
+                            <div class="card-header">
                                 <img src="img/avatar-mdo.png"  alt="img" width="55px" height="55px" class="rounded-circle mr-3">
                                 <div>
                                     <a href="{% url 'profile' post.author.pk %}">
                                         <p>{{ post.author.username }}</p>
                                     </a>
                                     <p>admin admin</p>
+                                </div>
+                                <div class="card-actions">
+                                  <div class="dropdown">
+                                    <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/dots-vertical -->
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                      <a class="dropdown-item" href="#">Редактировать</a>
+                                      <a class="dropdown-item" href="#">Архивировать</a>
+                                      <a class="dropdown-item text-danger" href="#">Удалить</a>
+                                    </div>
+                                  </div>
                                 </div>
                             </div>
                             <p class="text-justify new_size">{{post.description }}</p>
@@ -116,8 +129,8 @@
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z"></path>
                         </svg>
-                         
-                    
+
+
                     </div>
                 </div>
                 {% empty %}

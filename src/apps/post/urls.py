@@ -13,4 +13,5 @@ urlpatterns = [
     path('remove_from_bookmarks/<int:post_id>/', views.remove_from_bookmarks, name='remove_from_bookmarks'),
     path('recommendations/', views.recommendations_view, name='recommendations'),
     path('repost/<int:post_id>/', views.repost_post, name='repost_post'),
+    path('update_post/<int:pk>/', views.update_post, name='update_post')
 ]

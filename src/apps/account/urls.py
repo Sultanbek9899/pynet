@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 
 
@@ -20,5 +20,6 @@ urlpatterns = [
     path('follow/<int:pk>/', views.follow, name='follow'),
     
     path('change_password/', views.change_password, name='change_password'),
+    path('update_post/<int:pk>', include("src.apps.post.urls"))
 ]
 

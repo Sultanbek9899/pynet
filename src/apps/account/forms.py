@@ -92,4 +92,3 @@ class UserUpdateForm(forms.ModelForm):
 #         fields = ['password', 'new_password1', 'new_password2']
 
 
-
