@@ -5,6 +5,8 @@ from .forms import *
 
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView, DetailView
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import FormView, CreateView, UpdateView, ListView,TemplateView
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 # from django.contrib.auth.forms import UserCreationForm
@@ -145,6 +147,7 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
+
 def search(request):
     form = SearchForm(request.GET)
     results = []
@@ -169,6 +172,3 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'change_password.html', {'form': form})
-
-
-
