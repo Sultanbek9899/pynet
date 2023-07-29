@@ -1,6 +1,7 @@
 from django.urls import path
 
 from src.apps.api import views
+from .views import EditProfile
 
 
 from rest_framework_simplejwt.views import (
@@ -28,6 +29,7 @@ urlpatterns = [
     path('post/<int:pk>/', views.PostDetailAPIView.as_view()),
     path('post/create/', views.PostCreateAPIView.as_view()),
     path("some/api/", views.SomeApi.as_view()),
+    path('edit/profile/<int:pk>/', views.EditProfile.as_view(), name='edit_profile'),
     #authentication
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
