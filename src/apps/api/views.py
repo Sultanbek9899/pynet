@@ -8,8 +8,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
 
-from src.apps.api.serializers import PostSerializer,PostCreateSerializer, UserDetaileView, UserSeachView
-from src.apps.post.models import Post
+from src.apps.api.serializers import PostSerializer,PostCreateSerializer,CommentSerializer, UserDetaileView, UserSeachView
+from src.apps.post.models import Post 
+from rest_framework import generics , permissions
+from rest_framework.exceptions import ValidationError
+
 
 from .serializers import UserUpdateSerializer 
 
@@ -45,6 +48,31 @@ class SomeApi(APIView):
         data = {"status":"Ok", "info":"your post is reposted"}
         return Response(data=data, status=200)
     
+class CommentCreateAPIView(CreateAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+        post_id = self.request.data.get('post_id')
+
+        if post_id:
+            try:
+                post = Post.objects.get(pk=post_id)
+                serializer.save(post=post)
+            except Post.DoesNotExist:
+                serializer.errors['post_id'] = ['Post with the given post_id does not exist.']
+                raise ValidationError(serializer.errors)
+            
+
+class UserPostListView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Получаем посты только текущего аутентифицированного пользователя
+        return Post.objects.filter(author=self.request.user)
+
 
 
 class EditProfile(RetrieveUpdateAPIView):

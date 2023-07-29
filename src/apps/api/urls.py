@@ -1,13 +1,15 @@
 from django.urls import path
 
 from src.apps.api import views
-from .views import EditProfile
+
+from .views import CommentCreateAPIView , UserPostListView, EditProfile
+
 
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
-)
+)   
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
@@ -37,4 +39,6 @@ urlpatterns = [
     #authentication
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('create-comment/', CommentCreateAPIView.as_view(), name='comment-create'),
+    path('user_posts/', UserPostListView.as_view(), name='user-posts-list'),
 ]
