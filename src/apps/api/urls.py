@@ -28,6 +28,8 @@ urlpatterns = [
     path('post/<int:pk>/', views.PostDetailAPIView.as_view()),
     path('post/create/', views.PostCreateAPIView.as_view()),
     path("some/api/", views.SomeApi.as_view()),
+    path('users/<int:pk>/', views.UserDetailsView.as_view()),
+    path('users/search/', views.UserSearchView.as_view()),
     #authentication
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
