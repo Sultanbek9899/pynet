@@ -43,3 +43,18 @@ class UserSeachView(serializers.ModelSerializer):
             model = User
             fields = "__all__"
 
+
+class LikeCreateSerializer(serializers.Serializer):
+    post_id = serializers.IntegerField()
+
+    def validate(self, attrs):
+        id_ = attrs.get("post_id")
+        try:
+            Post.objects.get(pk=id_)
+        except Post.DoesNotExist:
+            raise serializers.ValidationError({"error": "post does not exist"})
+        else:
+            return attrs
+
+
+

@@ -29,6 +29,7 @@ urlpatterns = [
     path('docs/', schema_view.with_ui("swagger")),
     path('post/list/', views.PostListAPIView.as_view()),
     path('post/<int:pk>/', views.PostDetailAPIView.as_view()),
+    path('post/like/delete/<int:pk>', views.DeleteLikeAPIView.as_view()),
     path('post/create/', views.PostCreateAPIView.as_view()),
     path("some/api/", views.SomeApi.as_view()),
     path('edit/profile/<int:pk>/', views.EditProfile.as_view(), name='edit_profile'),
