@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-hr(5prkayu*-xt^w8g18+y8q@k-_(gclwe^n4bzx4^-y^psw8i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -90,11 +91,11 @@ AUTH_USER_MODEL = "account.User"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pynet',
-        'USER': 'pynet_admin',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config("DATABASE_NAME", default="pynet"),
+        'USER': config("DATABASE_USER", default="admin"),
+        'PASSWORD': config("DATABASE_PASSWORD", default="admin123"),
+        'HOST': config("DATABASE_HOST", default="localhost"),
+        'PORT': config("DATABASE_PORT", default=5432),
     }
 }
 

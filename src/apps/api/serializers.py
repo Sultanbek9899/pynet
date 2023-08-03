@@ -35,13 +35,13 @@ class UserDetaileView(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = "__all__"
+        exclude = ["password"]
 
 class UserSeachView(serializers.ModelSerializer):
 
         class Meta:
             model = User
-            fields = "__all__"
+            exclude = ["password", "is_superuser", "groups"]
 
 
 class LikeCreateSerializer(serializers.Serializer):
