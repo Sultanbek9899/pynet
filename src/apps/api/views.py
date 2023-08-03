@@ -2,17 +2,20 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 # Create your views here.
-from rest_framework.generics import ListAPIView, RetrieveDestroyAPIView, CreateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveDestroyAPIView, CreateAPIView, RetrieveUpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
-from src.apps.api.serializers import PostSerializer,PostCreateSerializer,CommentSerializer, UserDetaileView, UserSeachView, FollowUnfollowSerializer
+from src.apps.api.serializers import PostSerializer,PostCreateSerializer,CommentSerializer, UserDetaileView, UserSeachView
 from src.apps.post.models import Post 
-from rest_framework import generics , permissions
+from rest_framework import generics , permissions, status
 from rest_framework.exceptions import ValidationError
-from rest_framework import status
-from .serializers import UserUpdateSerializer 
+
+
+
+from .serializers import UserUpdateSerializer , LikeCreateSerializer
+
 from ..account.models import User
 from src.apps.account.models import User
 
@@ -22,6 +25,19 @@ class PostListAPIView(ListAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
     permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = LikeCreateSerializer(data=request.data)
+        user: User = request.user
+
+        if serializer.is_valid():
+            post = Post.objects.get(pk=serializer.validated_data["post_id"])
+            if post not in user.post_likes.all():
+                user.post_likes.add(post)
+                return Response({"details": "Success!"}, status=status.HTTP_200_OK)
+            return Response({"error": "Post already in liked posts"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
 
 
 class PostDetailAPIView(RetrieveDestroyAPIView):
@@ -95,7 +111,19 @@ class UserSearchView(APIView):
 
         serializer = UserSeachView(users, many=True)
         return Response(serializer.data)
+      
+class DeleteLikeAPIView(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        user: User = self.request.user
+        return user.post_likes.all()
+
+    def delete(self, request, pk):
+        user: User = request.user
+        post = Post.objects.get(pk=pk)
+        user.post_likes.remove(post)
+        return Response({"details":"Deleted"}, status=status.HTTP_200_OK)
 
 
 class FollowApiView(APIView):
@@ -118,8 +146,6 @@ class FollowApiView(APIView):
             # return messages.info(request, 'Вы не можете подписаться на самого себя')
             return Response({"details": "Вы не можете подписаться на самого себя"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # serializer = FollowUnfollowSerializer(follow_user)
-        # return Response(serializer.data)
     
     def get(self, request, pk):
         user = User.objects.get(pk=pk)
@@ -148,11 +174,11 @@ class UnfollowApiView(APIView):
             # return messages.info(request, 'Вы не можете отписаться от самого себя')
             return Response({"details":"Вы не можете отписаться от самого себя"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # serializer = FollowUnfollowSerializer(unfollow_user)
-        # return Response(serializer.data)
+       
     
     def get(self,request, pk):
         user = User.objects.get(pk=pk)
         followings = user.followers.all()
         followings_serializer = UserDetaileView(followings, many=True)
         return Response(followings_serializer.data)
+

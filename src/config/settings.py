@@ -91,10 +91,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pynet',
-        'USER': 'pynet.admin',
-        'PASSWORD': '12345',
+        'USER': 'pynet_admin',
+        'PASSWORD': '12345678',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
