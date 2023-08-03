@@ -2,7 +2,7 @@ from django.urls import path
 
 from src.apps.api import views
 
-from .views import CommentCreateAPIView , UserPostListView, EditProfile
+from .views import CommentCreateAPIView , UserPostListView, EditProfile, FollowApiView, UnfollowApiView
 
 
 
@@ -33,10 +33,11 @@ urlpatterns = [
     path('post/create/', views.PostCreateAPIView.as_view()),
     path("some/api/", views.SomeApi.as_view()),
     path('edit/profile/<int:pk>/', views.EditProfile.as_view(), name='edit_profile'),
-
     path('users/<int:pk>/', views.UserDetailsView.as_view()),
     path('users/search/', views.UserSearchView.as_view()),
-
+    path('user/follow/<int:pk>/', views.FollowApiView.as_view()),
+    path('user/unfollow/<int:pk>/', views.UnfollowApiView.as_view()),
+    
     #authentication
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

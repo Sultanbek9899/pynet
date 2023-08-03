@@ -9,8 +9,7 @@ from .views import UsersSearchListView
 urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/",views.user_logout, name="logout"),
-    
-  
+
     path("register/", views.register_user, name="register"),
     
     path('profile/<int:pk>/', views.get_user_profile, name="profile" ),
