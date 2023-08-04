@@ -1,24 +1,21 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
-
+from django.contrib import messages
 # Create your views here.
 from rest_framework.generics import ListAPIView, RetrieveDestroyAPIView, CreateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
-
-from src.apps.api.serializers import PostSerializer,PostCreateSerializer,CommentSerializer, UserDetaileView, UserSeachView
+from src.apps.api.serializers import PostSerializer,PostCreateSerializer,CommentSerializer, UserDetaileView, UserSeachView, FollowUnfollowSerializer
 from src.apps.post.models import Post 
 from rest_framework import generics , permissions
 from rest_framework.exceptions import ValidationError
-
-
+from rest_framework import status
 from .serializers import UserUpdateSerializer 
-
 from ..account.models import User
-
 from src.apps.account.models import User
+
 
 
 class PostListAPIView(ListAPIView):
@@ -99,3 +96,63 @@ class UserSearchView(APIView):
         serializer = UserSeachView(users, many=True)
         return Response(serializer.data)
 
+
+
+class FollowApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, pk):
+        try:
+            follow_user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+       
+        if request.user != follow_user:
+            if request.user not in follow_user.followers.all():
+                follow_user.followers.add(request.user)
+                # return messages.success(request, f'Вы подписались на {follow_user.username}')
+                return Response({"details":f"Вы подписались на {follow_user.username}"}, status=status.HTTP_201_CREATED)
+            else:
+                # return messages.info(request, f'Вы уже подписаны на {follow_user.username}')
+                return Response({"detals": f"Вы уже подписаны на {follow_user.username}"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            # return messages.info(request, 'Вы не можете подписаться на самого себя')
+            return Response({"details": "Вы не можете подписаться на самого себя"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # serializer = FollowUnfollowSerializer(follow_user)
+        # return Response(serializer.data)
+    
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        followers = user.followers.all()
+        follower_serializer = UserDetaileView(instance=followers, many=True)
+        return Response(follower_serializer.data)
+
+
+class UnfollowApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, pk):
+        try:
+            unfollow_user= User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+      
+        if request.user != unfollow_user:
+            if request.user in unfollow_user.followers.all():
+                unfollow_user.followers.remove(request.user)
+                # return messages.success(request, f'Вы отписались от {unfollow_user.username}')
+                return Response({"details":f"Вы отписались от {unfollow_user.username}"}, status=status.HTTP_200_OK)
+            else:
+                # return messages.info(request, f'Вы не были подписаны на {unfollow_user.username}')
+                return Response({"details":f"Вы не были подписаны на {unfollow_user.username}"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            # return messages.info(request, 'Вы не можете отписаться от самого себя')
+            return Response({"details":"Вы не можете отписаться от самого себя"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # serializer = FollowUnfollowSerializer(unfollow_user)
+        # return Response(serializer.data)
+    
+    def get(self,request, pk):
+        user = User.objects.get(pk=pk)
+        followings = user.followers.all()
+        followings_serializer = UserDetaileView(followings, many=True)
+        return Response(followings_serializer.data)

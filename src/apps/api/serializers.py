@@ -43,3 +43,20 @@ class UserSeachView(serializers.ModelSerializer):
             model = User
             fields = "__all__"
 
+# class FollowUnfollowSerializer(serializers.Serializer):
+#     user_id=serializers.IntegerField()
+
+#     def validate(self, attrs):
+#         id_=attrs.get('user_id')
+#         try:
+#             User.objects.get(pk=id_)
+#         except User.DoesNotExist:
+#             raise serializers.ValidationError({'error': 'user does not exist'})
+#         else:
+#             return attrs
+
+class FollowUnfollowSerializer(serializers.Serializer):
+    class Meta:
+        model = User
+        fields = ["id",]
+
