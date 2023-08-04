@@ -13,5 +13,8 @@ urlpatterns = [
     path('remove_from_bookmarks/<int:post_id>/', views.remove_from_bookmarks, name='remove_from_bookmarks'),
     path('recommendations/', views.recommendations_view, name='recommendations'),
     path('repost/<int:post_id>/', views.repost_post, name='repost_post'),
-    path('update_post/<int:pk>/', views.update_post, name='update_post')
+    path('update_post/<int:pk>/', views.update_post, name='update_post'),
+    path('archive/<int:pk>', views.archive, name="archive_post"),
+    path('delete_post/<int:pk>', views.delete_post, name='delete_post'),
+    path('archive_posts/', views.archive_posts, name='archive_posts'),
 ]

@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+  
+
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<div class="container bootstrap snippets bootdey">
+    <div class="col-md-8">
+        <div class="col-sm-12">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if error %}
+                    <h3>{{error}}</h3>
+                    {% endif %}
+                    {{form.as_p}}
+                    <button type="submit">Submit</button>
+                </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+                            
+  .panel-shadow2 {
+      box-shadow: rgba(31, 138, 205, 0.3) 7px 7px 7px;
+  }
+  .panel-white3 {
+    border: 1px solid #dddddd;
+  }
+  .panel-white3  .panel-heading3 {
+    color: #3b0e0e;
+    background-color: #472a2a;
+    border-color: #4e2727;
+  }
+  .panel-white3  .panel-footer {
+    background-color: #fff;
+    border-color: #710a0a;
+  }
+  
+  .post .post-heading {
+    height: 95px;
+    padding: 20px 15px;
+    margin-right: -20px;
+  }
+  
+
+  .post .post-heading .avatar {
+    width: 60px;
+    margin-left:15px;
+    height: 60px;
+    display: block;
+    margin-right: 18px;
+  }
+  .post .post-heading .meta .title {
+    margin-bottom: 0;
+    font-size: 18px;
+  }
+  .post .post-heading .meta .title a {
+    color: black;
+  }
+  .post .post-heading .meta .title a:hover {
+    color: #aaaaaa;
+  }
+  .post .post-heading .meta .time {
+    margin-top: 8px;
+    color: #999;
+  }
+  .post .post-image .image {
+    width: 50%;
+    height: 50%;
+    /* display: inline; */
+    /* margin0px; */
+    margin-left: 30px;
+  }
+  .post .post-description {
+    padding: 15px;
+    margin-left: 16px;
+    margin-top: -14px;
+  }
+  .post .post-description p {
+    font-size: 14px;
+    
+  }
+  .post .post-description .stats {
+    margin-top: 20px;
+    margin-left: 10x;
+  }
+  .post .post-description .stats .stat-item {
+    display: inline;
+    margin-right: 3px;
+    margin-inline-end:4px;
+    /* кнопки лайков. комментов и шэйринга */
+  }
+  .post .post-description .stats .stat-item .icon {
+    margin-right: -10px;
+    margin-left: 0px;
+    margin-bottom: 3px;
+  }
+ 
+  .post .post-footer {
+    border-top: 1px solid #7ca7dc;
+    padding: 30px;
+    width: 100%;
+    height: auto;
+    /* движение боди */
+  }
+  .post .post-footer .input-group-addon a {
+    color: #261818;
+  }
+  .post .post-footer .comments-list {
+    padding: 0;
+    margin-top: 20px;
+    list-style-type: none;
+  }
+  .post .post-footer .comments-list .comment {
+    display: block;
+    width: 100%;
+    margin: 20px 5;
+  }
+  .post .post-footer .comments-list .comment .avatar {
+    width: 35px;
+    height: 35px;
+    
+  }
+  .post .post-footer .comments-list .comment .comment-heading {
+    display: contents;
+    width: 10%;
+  }
+  .post .post-footer .comments-list .comment .comment-heading .user {
+    font-size: 14px;
+    font-weight: bold;
+    display:inline;
+    margin-top: -60px;
+    margin-right: 10px;
+  }
+  .post .post-footer .comments-list .comment .comment-heading .time {
+    font-size: 10px;
+    color: #615c5c;
+    margin-top: 100px;
+    display: inline;
+  }
+  .post .post-footer .comments-list .comment .comment-body {
+    margin-left: 50px;
+  }
+  .post .post-footer .comments-list .comment > .comments-list {
+    margin-left: 50px;
+  }       
+
+  .btn-info {
+    --tblr-btn-border-color: transparent;
+    --tblr-btn-hover-border-color: transparent;
+    --tblr-btn-active-border-color: transparent;
+    --tblr-btn-color: var(--tblr-info-fg);
+    --tblr-btn-bg: var(--tblr-info);
+    --tblr-btn-hover-color: var(--tblr-info-fg);
+    --tblr-btn-hover-bg: rgba(var(--tblr-info-rgb), .8);
+    --tblr-btn-active-color: var(--tblr-info-fg);
+    --tblr-btn-active-bg: rgba(var(--tblr-info-rgb), .10);
+    --tblr-btn-disabled-bg: var(--tblr-info);
+    --tblr-btn-disabled-color: var(--tblr-info-fg);
+    --tblr-btn-box-shadow: var(--tblr-box-shadow-input);
+    height: 32px;
+    width: 120px;
+    margin-top:-10px;
+}
+
+  
+  p.username{
+    margin-bottom: 10px;
+    display: inline;
+  }
+ 
+  
+  p.text {
+    margin-top: 10px;
+  }
+  
+</style>
+{% endblock %}
+  
